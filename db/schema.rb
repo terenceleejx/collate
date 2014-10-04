@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141004093139) do
+ActiveRecord::Schema.define(version: 20141004094408) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,8 +38,10 @@ ActiveRecord::Schema.define(version: 20141004093139) do
   end
 
   create_table "category_topics", force: true do |t|
-    t.integer "category_id"
-    t.integer "topic_id"
+    t.integer  "category_id"
+    t.integer  "topic_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "quantities", force: true do |t|
@@ -47,6 +49,13 @@ ActiveRecord::Schema.define(version: 20141004093139) do
     t.decimal  "number",     null: false
     t.date     "date"
     t.integer  "source_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "quantity_topics", force: true do |t|
+    t.integer  "topic_id"
+    t.integer  "quantity_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
