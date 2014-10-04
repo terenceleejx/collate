@@ -1,4 +1,4 @@
 class Unit < ActiveRecord::Base
-	belongs_to :quantities
+	has_many :quantities
 	validates :name, uniqueness: true
 end
