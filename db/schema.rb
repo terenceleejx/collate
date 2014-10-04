@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141004090820) do
+ActiveRecord::Schema.define(version: 20141004092534) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,6 +27,41 @@ ActiveRecord::Schema.define(version: 20141004090820) do
     t.integer  "failed_attempts",    default: 0
     t.string   "unlock_token"
     t.datetime "locked_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "categories", force: true do |t|
+    t.string   "name",       null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "quantities", force: true do |t|
+    t.text     "name",       null: false
+    t.decimal  "number",     null: false
+    t.date     "date"
+    t.integer  "source_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "sources", force: true do |t|
+    t.text     "URL"
+    t.text     "title",      null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "topics", force: true do |t|
+    t.string   "name",       null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "units", force: true do |t|
+    t.text     "name",        null: false
+    t.integer  "quantity_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
