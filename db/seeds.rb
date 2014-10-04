@@ -20,20 +20,58 @@ singapore = Topic.new
 singapore.name = 'Singapore'
 singapore.save!
 
+malaysia = Topic.new
+malaysia.name = 'Malaysia'
+malaysia.save!
+
+australia = Topic.new
+australia.name = 'Australia'
+australia.save!
+
+china = Topic.new
+china.name = 'China'
+china.save!
+
 unit = Unit.new
 unit.name = 'percentage'
-unit.quantity_id = 1
 unit.save!
 
-quantity = Quantity.new
-quantity.name = 'penetration'
-quantity.number = 0.87
-quantity.source_id = 1
-quantity.save!
+quantitySG = Quantity.new
+quantitySG.name = 'penetration'
+quantitySG.number = 0.87
+quantitySG.source_id = 1
+quantitySG.unit_id = 1
+quantitySG.save!
+
+quantityMY = Quantity.new
+quantityMY.name = 'penetration'
+quantityMY.number = 0.80
+quantityMY.source_id = 1
+quantityMY.unit_id = 1
+quantityMY.save!
+
+quantityAU = Quantity.new
+quantityAU.name = 'penetration'
+quantityAU.number = 0.75
+quantityAU.source_id = 1
+quantityAU.unit_id = 1
+quantityAU.save!
+
+quantityCN = Quantity.new
+quantityCN.name = 'penetration'
+quantityCN.number = 0.71
+quantityCN.source_id = 1
+quantityCN.unit_id = 1
+quantityCN.save!
 
 country = Category.new
 country.name = 'country'
 country.save!
+
+sgcountry = CategoryTopic.new
+sgcountry.category_id = 1
+sgcountry.topic_id = 2
+sgcountry.save!
 
 source = Source.new
 source.URL = 'http://www.techinasia.com/nielsen-report-smartphone-adoption-gap-asia-pacific/'
