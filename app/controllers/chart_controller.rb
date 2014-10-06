@@ -1,5 +1,5 @@
 class ChartController < ApplicationController
 	def new
-		@quantity = Quantity.all
+		@chart = Chart.all
 	end
 end

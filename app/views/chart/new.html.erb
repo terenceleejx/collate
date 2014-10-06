@@ -1,2 +1,11 @@
-<% data = {"Singapore" => 0.71, "India" => 0.4} %>
+<% data = Hash.new %>
+<% Dataset.take.quantities.each do |quantity| %>
+  <% quantity.topics.each do |topic|  %>
+  	<% topic.categories.each do |topic_category| %>
+  		<% if topic_category.id == Dataset.take.category_id %>
+  		  <% data[topic.name] = quantity.number %>
+  		<% end %>
+  	<% end %>
+  <% end %>
+<% end %>
 <%= bar_chart data %>
