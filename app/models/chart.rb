@@ -1,4 +1,5 @@
 class Chart < ActiveRecord::Base
-	#One chart can have many datasets for multi-series charts
+	has_many :chart_datasets
+	has_many :datasets, through: :chart_datasets
 	validates :name, presence: true
 end
