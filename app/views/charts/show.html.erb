@@ -1,6 +1,6 @@
-<%= Dataset.take.name %>
+<%= @chart.name %>
 <% data = Hash.new %>
-<% Dataset.take.quantities.each do |quantity| %>
+<% @chart.datasets.take.quantities.each do |quantity| %>
   <% quantity.topics.each do |topic|  %>
   	<% topic.categories.each do |topic_category| %>
   		<% if topic_category.id == Dataset.take.category_id %>

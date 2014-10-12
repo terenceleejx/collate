@@ -1,0 +1,23 @@
+<%= Dataset.take.name %>
+<% data = Hash.new %>
+<% Dataset.find(1).quantities.each do |quantity| %>
+  <% quantity.topics.each do |topic|  %>
+  	<% topic.categories.each do |topic_category| %>
+  		<% if topic_category.id == Dataset.take.category_id %>
+  		  <% data[topic.name] = quantity.number %>
+  		<% end %>
+  	<% end %>
+  <% end %>
+<% end %>
+<%= bar_chart data %>
+<% data2 = Array.new %>
+<% Chart.find(2).datasets.each do |dataset| %>
+	<% data3 = Hash.new %>
+  <% dataset.quantities.each do |quantity| %>
+  	<% data3[quantity.date] = quantity.number %>
+  <% end %>
+  <% data2.push({name: dataset.name, data: data3}) %>
+<% end %>
+<%= data2 %>
+<%= line_chart data2 %>
+<%= line_chart([{name: "Series A", data: {19.days.ago => 5, 14.days.ago => 4, 12.days.ago => 3, 10.days.ago => 7}}, {name: "Series B", data: {19.days.ago => 4, 14.days.ago => 5, 12.days.ago => 3, 10.days.ago => 10}}]) %>
