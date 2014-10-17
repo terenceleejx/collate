@@ -1,3 +1,4 @@
+<%# need to sort the data before visualizing it %>
 <%= @chart.name %>
 <% data = Hash.new %>
 <% @chart.datasets.take.quantities.each do |quantity| %>
@@ -7,4 +8,5 @@
   	<% end %>
   <% end %>
 <% end %>
-<%= bar_chart data %>
+<% sorted_data = data.sort_by { |k, v| v}.reverse %>
+<%= bar_chart sorted_data %>
