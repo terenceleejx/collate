@@ -1,9 +1,9 @@
 class ChartsController < ApplicationController
-	layout "iframes", only: [:iframe]
+	layout "embed", only: [:embed]
 	def show
 		@chart = Chart.find(params[:id])
 	end
-	def iframe
+	def embed
 	  @chart = Chart.find(params[:id])
 	end
 end

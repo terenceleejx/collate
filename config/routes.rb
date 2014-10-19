@@ -8,7 +8,7 @@ Collate::Application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'chart#new'
   get 'charts/:id' => 'charts#show' 
-  get 'charts/iframe/:id' => 'charts#iframe'
+  get 'charts/embed/:id' => 'charts#embed'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
