@@ -25,7 +25,7 @@
 	  			<% end %>
 	  		<% end %>
 			<% end %>
-			<% sorted_data = data.sort { |a,b| a[1] <=> b[1]} %>
+			<% sorted_data = data.sort { |a,b| b[1] <=> a[1]} %>
       data.addRows(<%= sorted_data.to_json.html_safe %>);
 
       // Set chart options
