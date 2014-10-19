@@ -1,5 +1,5 @@
 class ChartsController < ApplicationController
-	layout "iframe", only: [:iframe]
+	layout "iframes", only: [:iframe]
 	def show
 		@chart = Chart.find(params[:id])
 	end
