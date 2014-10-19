@@ -2,16 +2,16 @@
 
 ### What is Collate?
 
-Collate is a tool that makes data visualization for content sites much easier by combining a database of facts with a simple-to-use chart builder.
+Collate is a tool to help journalists, marketers, and content creators find, store, and visualize data.
 
 ### What's the problem?
 
-Content creators don't have an easy-to-use tool to visualize facts. While databases for facts are out there, they are difficult to use. And while web-based, drag-and-drop chart makers like Infogram are available, importing data into them isn't easy. 
+Data is becoming more central in content creation. Yet journalists don't have a systematic way to store data and retrieve them for use. While databases are out there, they are difficult to use. And while web-based, drag-and-drop chart makers like Infogram, Visually, and Piktochart are available, importing data into them isn't easy. 
 
 ### What's the solution?
 
-By integrating a database of facts with a chart maker, the workflow for journalists and content creators smoothens dramatically. Journalists can re-use facts or charts contributed by others, or add their own. Charts can be generated immediately from stored data - reducing the need to import them again and again.
+By integrating a database of facts with a chart maker, the workflow for journalists and content creators smoothen dramatically. Journalists can search or reuse facts and charts contributed by others, or add their own. Charts can be generated immediately from stored facts - reducing the need to import data again and again.
 
 ### Monetization
 
-Created charts are available to everyone. Users pay to make new charts, key in new data, or create charts with their branding.
+Created charts are available to everyone. Users pay to make new charts, key in new data, or create white-labeled charts.

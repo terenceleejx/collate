@@ -34,7 +34,9 @@ gem 'rails_12factor', group: :production
 
 gem 'chartkick', '~> 1.3.2'
 
+# Bootstrap and autoprefixer comes together
 gem 'bootstrap-sass', '~> 3.2.0.2'
+gem 'autoprefixer-rails', '~> 3.1.2.20141016'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
