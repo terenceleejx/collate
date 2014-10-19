@@ -1,12 +1,15 @@
 <%# need to sort the data before visualizing it %>
 <%= @chart.name %>
 <% data = Hash.new %>
-<% @chart.datasets.take.quantities.each do |quantity| %>
-  <% quantity.topics.each do |topic|  %>
-  	<% if topic.category_id == @chart.datasets.take.topic_id %>
-  		<% data[topic.name] = quantity.number %>
-  	<% end %>
-  <% end %>
+<%# bar chart %>
+<% if @chart.chart_type_id == 1 %> 
+	<% @chart.datasets.take.quantities.each do |quantity| %>
+	  <% quantity.topics.each do |topic|  %>
+	  	<% if topic.category_id == @chart.datasets.take.topic_id %>
+	  		<% data[topic.name] = quantity.number %>
+	  	<% end %>
+	  <% end %>
+	<% end %>
+	<% sorted_data = data.sort_by { |k, v| v}.reverse %>
+	<%= bar_chart sorted_data %>
 <% end %>
-<% sorted_data = data.sort_by { |k, v| v}.reverse %>
-<%= bar_chart sorted_data %>
