@@ -2,7 +2,7 @@
 <%= @chart.name %>
 <% data = Hash.new %>
 <%# bar chart %>
-<% if @chart.chart_type_id == 1 %> 
+<% if @chart.chart_type_id == 2 %> 
 	<% @chart.datasets.take.quantities.each do |quantity| %>
 	  <% quantity.topics.each do |topic|  %>
 	  	<% if topic.category_id == @chart.datasets.take.topic_id %>
@@ -13,3 +13,18 @@
 	<% sorted_data = data.sort_by { |k, v| v}.reverse %>
 	<%= bar_chart sorted_data %>
 <% end %>
+
+<!--
+Code for multiple series chart
+<% data2 = Array.new %>
+<% Chart.find(2).datasets.each do |dataset| %>
+	<% data3 = Hash.new %>
+  <% dataset.quantities.each do |quantity| %>
+  	<% data3[quantity.date] = quantity.number %>
+  <% end %>
+  <% data2.push({name: dataset.name, data: data3}) %>
+<% end %>
+<%= data2 %>
+<%= line_chart data2 %>
+<%= line_chart([{name: "Series A", data: {19.days.ago => 5, 14.days.ago => 4, 12.days.ago => 3, 10.days.ago => 7}}, {name: "Series B", data: {19.days.ago => 4, 14.days.ago => 5, 12.days.ago => 3, 10.days.ago => 10}}]) %>
+-->

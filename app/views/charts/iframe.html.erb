@@ -1,7 +1,7 @@
-<%= @chart.name %>
+<h3><%= @chart.name %></h3>
 <% data = Hash.new %>
 <%# bar chart %>
-<% if @chart.chart_type_id == 1 %> 
+<% if @chart.chart_type_id == 2 %> 
 	<% @chart.datasets.take.quantities.each do |quantity| %>
 	  <% quantity.topics.each do |topic|  %>
 	  	<% if topic.category_id == @chart.datasets.take.topic_id %>

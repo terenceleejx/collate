@@ -7,8 +7,9 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-<%= javascript_include_tag "//www.google.com/jsapi", "chartkick" %>
-<%= yield %>
-
+	<%= javascript_include_tag "//www.google.com/jsapi", "chartkick" %>
+	<div class="container">
+		<%= yield %>
+	</div>
 </body>
 </html>
