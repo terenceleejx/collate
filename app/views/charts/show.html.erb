@@ -1,17 +1,50 @@
-<h3><%= @chart.name %></h3>
-<% data = Hash.new %>
+<p style="font-family:Helvetica Neue">Bootstrap ships with vanilla CSS, but its source</p>
+<p style="font-family:Arial">Bootstrap ships with vanilla CSS, but its source</p>
+<% data = Array.new %>
 <%# bar chart %>
 <% if @chart.chart_type_id == 2 %> 
-	<% @chart.datasets.take.quantities.each do |quantity| %>
-	  <% quantity.topics.each do |topic|  %>
-	  	<% if topic.category_id == @chart.datasets.take.topic_id %>
-	  		<% data[topic.name] = quantity.number %>
-	  	<% end %>
-	  <% end %>
-	<% end %>
-	<% sorted_data = data.sort_by { |k, v| v}.reverse %>
-	<%= bar_chart sorted_data, colors: @chart.colors %>
+	<script>
+
+    // Load the Visualization API and the piechart package.
+    google.load('visualization', '1.0', {'packages':['corechart']});
+
+    // Set a callback to run when the Google Visualization API is loaded.
+    google.setOnLoadCallback(drawChart);
+
+    // Callback that creates and populates a data table,
+    // instantiates the pie chart, passes in the data and
+    // draws it.
+    function drawChart() {
+
+      // Create the data table.
+      var data = new google.visualization.DataTable();
+      data.addColumn('string', '<%= Topic.find(@chart.datasets.take.topic_id).name %>');
+      data.addColumn('number', '<%= QuantityType.find(@chart.datasets.take.quantities.take.quantity_type_id).name %>');
+      <% @chart.datasets.take.quantities.each do |quantity| %>
+	  		<% quantity.topics.each do |topic|  %>
+	  			<% if topic.category_id == @chart.datasets.take.topic_id %>
+	  				<% data.push([topic.name, quantity.number.to_f])  %>
+	  			<% end %>
+	  		<% end %>
+			<% end %>
+			<% sorted_data = data.sort { |a,b| a[1] <=> b[1]} %>
+      data.addRows(<%= sorted_data.to_json.html_safe %>);
+
+      // Set chart options
+      var options = {'title':'<%= @chart.name %>',
+                     'width':'100%',
+                     'height':300,
+                   	 'colors':<%= @chart.colors.to_json.html_safe %>,
+                   	 'fontName': 'Helvetica Neue'
+                   	};
+
+      // Instantiate and draw our chart, passing in some options.
+      var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+      chart.draw(data, options);
+    }
+  </script>
 <% end %>
+<div id="chart_div"></div>
 
 <!--
 Code for multiple series chart
@@ -26,4 +59,16 @@ Code for multiple series chart
 <%= data2 %>
 <%= line_chart data2 %>
 <%= line_chart([{name: "Series A", data: {19.days.ago => 5, 14.days.ago => 4, 12.days.ago => 3, 10.days.ago => 7}}, {name: "Series B", data: {19.days.ago => 4, 14.days.ago => 5, 12.days.ago => 3, 10.days.ago => 10}}]) %>
+
+
+Old Chartkick code
+
+	
+	<%= bar_chart sorted_data, colors: @chart.colors %>
+
+
+Embed code
+
+<iframe src="//ancient-inlet-3483.herokuapp.com/charts/embed/2" width="100%" height="400" style="border-width:0">
+</iframe>
 -->
