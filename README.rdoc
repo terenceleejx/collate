@@ -1,8 +1,8 @@
-## Collate
+## Statsy
 
-### What is Collate?
+### What is Statsy?
 
-Collate is a tool to help journalists, marketers, and content creators find, store, and visualize data.
+Statsy is a tool to help journalists, marketers, and content creators find, store, and visualize data.
 
 ### What's the problem?
 
