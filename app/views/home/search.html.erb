@@ -5,10 +5,36 @@
   			<th>Topic</th>
   			<th>Value</th>
   			<th>Type</th>
-  			<th>Sources</th>
+  			<th>Date</th>
+  			<th>Source</th>
   		</tr>
   	</thead>
   	<tbody>
+			<% @topics.each do |topic| %>
+ 			  <tr>
+ 			  	<% topic.quantities.each do |quantity| %>
+ 			  		<td>
+ 			  			<% quantity.topics.each do |topic| %>
+ 			  		    <%= topic.name %>
+ 			  		  <% end %>
+ 			  		</td>
+ 			  		<td><%= quantity.number %></td>
+ 			  		<td>
+ 			  			<% @quantity_types = QuantityType.take(quantity.id) %>
+ 			  			<% @quantity_types.each do |quantity_type| %>
+ 			  			  <%= quantity_type.name %>
+ 			  			<% end %>
+ 			  		</td>
+ 			  		<td><%= quantity.date %></td>
+ 			  		<td>
+ 			  			<% @sources = Source.take(quantity.id) %>
+ 			  			<% @sources.each do |source| %>
+ 			  				<a href="<%= source.URL %>"><%= source.title %></a>
+ 			  			<% end %>
+ 			  		</td>
+ 			  	<% end %>
+ 			  </tr>
+			<% end %>
   	</tbody>
   </table>
 </div>
