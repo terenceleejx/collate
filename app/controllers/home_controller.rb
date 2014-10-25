@@ -4,6 +4,6 @@ class HomeController < ApplicationController
 	def about
 	end
 	def search
-		@topics = Topic.search "#{params[:keywords]}"
+		@topics = Topic.search params[:keywords]
 	end
 end
