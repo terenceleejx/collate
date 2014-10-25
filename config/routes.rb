@@ -10,6 +10,8 @@ Collate::Application.routes.draw do
   get 'charts/:id' => 'charts#show' 
   get 'charts/embed/:id' => 'charts#embed'
   get 'about' => 'home#about'
+  get 'search' => 'home#search'
+  post 'search' => 'home#search'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
