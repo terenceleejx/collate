@@ -60,7 +60,7 @@
 				  <% quantity.datasets.each do |dataset| %>
 				  	<% dataset.charts.each do |chart| %>
 				  	  <% if chart_ids.include?(chart.id) == false %>
-					  	  <iframe id= "ifrm" src="/charts/embed/<%= chart.id %>" width="100%" style="border-width:0" onload="setIframeHeight(this.id)"></iframe>
+					  	  <iframe id= "chart-<%= chart.id %>" src="/charts/embed/<%= chart.id %>" width="100%" style="border-width:0" onload="setIframeHeight(this.id)"></iframe>
 					  	  <% chart_ids.push(chart.id) %>
 					  	<% end %>
 				  	<% end %>
