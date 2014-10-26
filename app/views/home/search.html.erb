@@ -26,13 +26,17 @@
  			  			<% end %>
  			  		</td>
  			  		<td>
- 			  			<% @quantity_types = QuantityType.find(quantity.id) %>
- 			  			<% @quantity_types.name %>
+ 			  			<% @quantity_type = QuantityType.find quantity.quantity_type_id %>
+ 			  			<%= @quantity_type.name %>
  			  		</td>
- 			  		<td><%= quantity.date.strftime("%B %d, %Y") %></td>
  			  		<td>
- 			  			<% @sources = Source.find(quantity.id) %>
- 			  			<a href="<%= @sources.URL %>"><%= @sources.title %></a>
+ 			  			<% if quantity.date.blank? == false %>
+ 			  				<%= quantity.date.strftime("%B %d, %Y") %>
+ 			  			<% end %>
+ 			  		</td>
+ 			  		<td>
+ 			  			<% @source = Source.find quantity.source_id %>
+ 			  			<a href="<%= @source.URL %>"><%= @source.title %></a>
  			  		</td>
  			  	</tr>
  			  <% end %>
