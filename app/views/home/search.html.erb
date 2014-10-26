@@ -11,14 +11,18 @@
   	</thead>
   	<tbody>
 			<% @topics.each do |topic| %>
- 			  <tr>
- 			  	<% topic.quantities.each do |quantity| %>
+ 			  <% topic.quantities.each do |quantity| %>
+ 			  	<tr>
  			  		<td>
  			  			<% quantity.topics.each do |topic| %>
  			  		    <%= topic.name %>
  			  		  <% end %>
  			  		</td>
- 			  		<td><%= quantity.number %></td>
+ 			  		<td>
+ 			  			<% if quantity.unit_id == 1 %>
+ 			  				<%= quantity.number*100 %> %
+ 			  			<% end %>
+ 			  		</td>
  			  		<td>
  			  			<% @quantity_types = QuantityType.take(quantity.id) %>
  			  			<% @quantity_types.each do |quantity_type| %>
@@ -32,8 +36,8 @@
  			  				<a href="<%= source.URL %>"><%= source.title %></a>
  			  			<% end %>
  			  		</td>
- 			  	<% end %>
- 			  </tr>
+ 			  	</tr>
+ 			  <% end %>
 			<% end %>
   	</tbody>
   </table>
