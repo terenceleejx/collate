@@ -21,20 +21,18 @@
  			  		<td>
  			  			<% if quantity.unit_id == 1 %>
  			  				<%= quantity.number*100 %> %
+ 			  			<% else %>
+ 			  				<%= quantity.number %>
  			  			<% end %>
  			  		</td>
  			  		<td>
- 			  			<% @quantity_types = QuantityType.take(quantity.id) %>
- 			  			<% @quantity_types.each do |quantity_type| %>
- 			  			  <%= quantity_type.name %>
- 			  			<% end %>
+ 			  			<% @quantity_types = QuantityType.find(quantity.id) %>
+ 			  			<% @quantity_types.name %>
  			  		</td>
- 			  		<td><%= quantity.date %></td>
+ 			  		<td><%= quantity.date.strftime("%B %d, %Y") %></td>
  			  		<td>
- 			  			<% @sources = Source.take(quantity.id) %>
- 			  			<% @sources.each do |source| %>
- 			  				<a href="<%= source.URL %>"><%= source.title %></a>
- 			  			<% end %>
+ 			  			<% @sources = Source.find(quantity.id) %>
+ 			  			<a href="<%= @sources.URL %>"><%= @sources.title %></a>
  			  		</td>
  			  	</tr>
  			  <% end %>
