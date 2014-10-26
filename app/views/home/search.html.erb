@@ -22,7 +22,7 @@
  			  			<% if quantity.unit_id == 1 %>
  			  				<%= quantity.number*100 %> %
  			  			<% else %>
- 			  				<%= quantity.number %>
+ 			  				<%= number_to_human quantity.number %>
  			  			<% end %>
  			  		</td>
  			  		<td>

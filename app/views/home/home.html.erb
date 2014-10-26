@@ -6,7 +6,7 @@
 		<%= form_tag("/search", method: "get", role: "form") do %>
 			<div class="form-group element-center" style="width: 40%">
 			  <%= label_tag :search, "Search", class: "sr-only" %>
-			  <%= text_field_tag :keywords, nil, placeholder: "Enter keywords", class: "form-control", id: "search" %>
+			  <%= text_field_tag :keywords, nil, placeholder: "Search topic", class: "form-control", id: "search" %>
 			</div>
 			<div class="center">
 			  <%= submit_tag "Search", class: "btn btn-default" %>
