@@ -1,7 +1,7 @@
 <% data = Array.new %>
 <%# bar chart %>
 <% if @chart.chart_type_id == 2 %> 
-	<script>
+  <script>
 
     // Load the Visualization API and the piechart package.
     google.load('visualization', '1.0', {'packages':['corechart']});
@@ -19,23 +19,24 @@
       data.addColumn('string', '<%= Topic.find(@chart.datasets.take.topic_id).name %>');
       data.addColumn('number', '<%= QuantityType.find(@chart.datasets.take.quantities.take.quantity_type_id).name %>');
       <% @chart.datasets.take.quantities.each do |quantity| %>
-	  		<% quantity.topics.each do |topic|  %>
-	  			<% if topic.category_id == @chart.datasets.take.topic_id %>
-	  				<% data.push([topic.name, quantity.number.to_f])  %>
-	  			<% end %>
-	  		<% end %>
-			<% end %>
-			<% sorted_data = data.sort { |a,b| b[1] <=> a[1]} %>
+        <% quantity.topics.each do |topic|  %>
+          <% if topic.category_id == @chart.datasets.take.topic_id %>
+            <% data.push([topic.name, quantity.number.to_f])  %>
+          <% end %>
+        <% end %>
+      <% end %>
+      <% sorted_data = data.sort { |a,b| b[1] <=> a[1]} %>
       data.addRows(<%= sorted_data.to_json.html_safe %>);
 
       // Set chart options
       var options = {'title':'<%= @chart.name %>',
                      'width':'100%',
                      'height':300,
-                   	 'colors':<%= @chart.colors.to_json.html_safe %>,
-                   	 titleTextStyle: {fontSize: 16},
-                   	 'fontName': 'Helvetica Neue'
-                   	};
+                     'colors':<%= @chart.colors.to_json.html_safe %>,
+                     titleTextStyle: {fontSize: 16},
+                     legend: { position: "none" },
+                     'fontName': 'Helvetica Neue'
+                    };
 
       // Instantiate and draw our chart, passing in some options.
       var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
@@ -44,3 +45,11 @@
   </script>
 <% end %>
 <div id="chart_div"></div>
+
+<!--
+
+Embed code
+
+<iframe src="//statsy.com/charts/embed/2" width="100%" height="400" style="border-width:0">
+</iframe>
+-->

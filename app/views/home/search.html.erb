@@ -1,49 +1,97 @@
 <div class="table-responsive">
-  <table class="table">
-  	<thead>
-  		<tr>
-  			<th>Topic</th>
-  			<th>Value</th>
-  			<th>Type</th>
-  			<th>Date</th>
-  			<th>Source</th>
-  		</tr>
-  	</thead>
-  	<tbody>
+	<div class="row">
+		<%= form_tag("/search", method: "get", class: "form-inline", role: "form", style: "margin: 15px 0px") do %>
+			<%= label_tag :search, "Search", class: "sr-only" %>
+			<%= text_field_tag :keywords, nil, placeholder: params[:keywords], class: "form-control", id: "search", style: "width: 30%" %>
+			<%= submit_tag "Search", class: "btn btn-default" %>
+		<% end %>
+	</div>
+	<div class="row">
+		<div class="col-md-7">
+		  <table class="table">
+		  	<thead>
+		  		<tr>
+		  			<th>Topic</th>
+		  			<th>Value</th>
+		  			<th>Type</th>
+		  			<th>Date</th>
+		  			<th>Source</th>
+		  		</tr>
+		  	</thead>
+		  	<tbody>
+					<% @topics.each do |topic| %>
+		 			  <% topic.quantities.each do |quantity| %>
+		 			  	<tr>
+		 			  		<td>
+		 			  			<% quantity.topics.each do |topic| %>
+		 			  		    <%= topic.name %>
+		 			  		  <% end %>
+		 			  		</td>
+		 			  		<td>
+		 			  			<% if quantity.unit_id == 1 %>
+		 			  				<%= quantity.number*100 %> %
+		 			  			<% else %>
+		 			  				<%= number_to_human quantity.number %>
+		 			  			<% end %>
+		 			  		</td>
+		 			  		<td>
+		 			  			<% @quantity_type = QuantityType.find quantity.quantity_type_id %>
+		 			  			<%= @quantity_type.name %>
+		 			  		</td>
+		 			  		<td>
+		 			  			<% if quantity.date.blank? == false %>
+		 			  				<%= quantity.date.strftime("%B %d, %Y") %>
+		 			  			<% end %>
+		 			  		</td>
+		 			  		<td>
+		 			  			<% @source = Source.find quantity.source_id %>
+		 			  			<a href="<%= @source.URL %>"><%= @source.title %></a>
+		 			  		</td>
+		 			  	</tr>
+		 			  <% end %>
+					<% end %>
+		  	</tbody>
+		  </table>
+		</div>
+		<div class="col-md-5">
+			<% chart_ids = Array.new %>
 			<% @topics.each do |topic| %>
- 			  <% topic.quantities.each do |quantity| %>
- 			  	<tr>
- 			  		<td>
- 			  			<% quantity.topics.each do |topic| %>
- 			  		    <%= topic.name %>
- 			  		  <% end %>
- 			  		</td>
- 			  		<td>
- 			  			<% if quantity.unit_id == 1 %>
- 			  				<%= quantity.number*100 %> %
- 			  			<% else %>
- 			  				<%= number_to_human quantity.number %>
- 			  			<% end %>
- 			  		</td>
- 			  		<td>
- 			  			<% @quantity_type = QuantityType.find quantity.quantity_type_id %>
- 			  			<%= @quantity_type.name %>
- 			  		</td>
- 			  		<td>
- 			  			<% if quantity.date.blank? == false %>
- 			  				<%= quantity.date.strftime("%B %d, %Y") %>
- 			  			<% end %>
- 			  		</td>
- 			  		<td>
- 			  			<% @source = Source.find quantity.source_id %>
- 			  			<a href="<%= @source.URL %>"><%= @source.title %></a>
- 			  		</td>
- 			  	</tr>
- 			  <% end %>
+				<% topic.quantities.each do |quantity| %>
+				  <% quantity.datasets.each do |dataset| %>
+				  	<% dataset.charts.each do |chart| %>
+				  	  <% if chart_ids.include?(chart.id) == false %>
+					  	  <iframe id= "ifrm" src="/charts/embed/<%= chart.id %>" width="100%" style="border-width:0" onload="setIframeHeight(this.id)"></iframe>
+					  	  <% chart_ids.push(chart.id) %>
+					  	<% end %>
+				  	<% end %>
+				  <% end %>
+				<% end %>
 			<% end %>
-  	</tbody>
-  </table>
+		</div>
+	</div>
 </div>
+
+<script>
+function getDocHeight(doc) {
+    doc = doc || document;
+    // stackoverflow.com/questions/1145850/
+    var body = doc.body, html = doc.documentElement;
+    var height = Math.max( body.scrollHeight, body.offsetHeight, 
+        html.clientHeight, html.scrollHeight, html.offsetHeight );
+    return height;
+}
+
+function setIframeHeight(id) {
+    var ifrm = document.getElementById(id);
+    var doc = ifrm.contentDocument? ifrm.contentDocument: 
+        ifrm.contentWindow.document;
+    ifrm.style.visibility = 'hidden';
+    ifrm.style.height = "10px"; // reset to minimal height ...
+    // IE opt. for bing/msn needs a bit added or scrollbar appears
+    ifrm.style.height = getDocHeight( doc ) + 4 + "px";
+    ifrm.style.visibility = 'visible';
+}
+</script>
 
 <!--
 
