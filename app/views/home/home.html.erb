@@ -1,16 +1,24 @@
 <div class="row">
 	<h1 class="text-center" style="margin: 40px">Welcome to Statsy!</h1>
 </div>
-<div class="row">
-	<div>  
-		<%= form_tag("/search", method: "get", role: "form") do %>
-			<div class="form-group element-center" style="width: 40%">
+<div class="row">  
+	<%= form_tag("/search", method: "get", role: "form") do %>
+		<div class="form-group element-center" style="width: 40%">
+			<div class="form-group">
 			  <%= label_tag :search, "Search", class: "sr-only" %>
 			  <%= text_field_tag :keywords, nil, placeholder: "Search topic", class: "form-control", id: "search" %>
 			</div>
-			<div class="center">
-			  <%= submit_tag "Search", class: "btn btn-default" %>
+		</div>
+		<div class="center">
+			<div class="form-group">
+				<label class="radio-inline" for="type_stats">
+					<%= radio_button_tag :type, "Stats", checked: true %> Stats
+				</label>
+				<label class="radio-inline" for="type_charts">
+					<%= radio_button_tag :type, "Charts" %> Charts
+				</label>
 			</div>
-		<% end %>
-	</div>
+		  <%= submit_tag "Search", class: "btn btn-default" %>
+		</div>
+	<% end %>
 </div>

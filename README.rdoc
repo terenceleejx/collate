@@ -2,15 +2,15 @@
 
 ### What is Statsy?
 
-Statsy is a tool to help journalists, marketers, and content creators find, store, and visualize data.
+Statsy is a tool to help you quickly find, store, and visualize data.
 
 ### What's the problem?
 
-Data is becoming more central in content creation. Yet journalists don't have a systematic way to store data and retrieve them for use. While databases are out there, they are difficult to use. And while web-based, drag-and-drop chart makers like Infogram, Visually, and Piktochart are available, importing data into them isn't easy. 
+Data is becoming more central in content creation. Yet content creators don't have a systematic way to store data and retrieve them for use. While databases are out there, they are difficult to use. And while web-based, drag-and-drop chart makers like Infogram, Visually, and Piktochart are available, importing data into them isn't easy. 
 
 ### What's the solution?
 
-By integrating a database of facts with a chart maker, the workflow for journalists and content creators smoothen dramatically. Journalists can search or reuse facts and charts contributed by others, or add their own. Charts can be generated immediately from stored facts - reducing the need to import data again and again.
+By integrating a database of facts with a chart maker, the workflow for content creators smoothen dramatically. Journalists can search or reuse facts and charts contributed by others, or add their own. Charts can be generated immediately from stored facts - reducing the need to import data again and again.
 
 ### Monetization
 
