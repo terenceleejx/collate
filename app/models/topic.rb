@@ -1,5 +1,4 @@
 class Topic < ActiveRecord::Base
-	searchkick
 	has_many :sub_topics, class_name: "Topic",
 												foreign_key: "category_id"
 	belongs_to :category, class_name: "Topic"

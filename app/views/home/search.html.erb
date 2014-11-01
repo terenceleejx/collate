@@ -18,58 +18,56 @@
 		  			<th>Source</th>
 		  		</tr>
 		  	</thead>
-		  	<tbody>
-					<% @topics.each do |topic| %>
-		 			  <% topic.quantities.each do |quantity| %>
-		 			  	<tr>
-		 			  		<td>
-		 			  			<% quantity.topics.each do |topic| %>
-		 			  		    <%= topic.name %>
-		 			  		  <% end %>
-		 			  		</td>
-		 			  		<td>
-		 			  			<% if quantity.unit_id == 1 %>
-		 			  				<%= quantity.number*100 %> %
-		 			  			<% else %>
-		 			  				<%= number_to_human quantity.number %>
-		 			  			<% end %>
-		 			  		</td>
-		 			  		<td>
-		 			  			<% @quantity_type = QuantityType.find quantity.quantity_type_id %>
-		 			  			<%= @quantity_type.name %>
-		 			  		</td>
-		 			  		<td>
-		 			  			<% if quantity.date.blank? == false %>
-		 			  				<%= quantity.date.strftime("%B %d, %Y") %>
-		 			  			<% end %>
-		 			  		</td>
-		 			  		<td>
-		 			  			<% @source = Source.find quantity.source_id %>
-		 			  			<a href="<%= @source.URL %>"><%= @source.title %></a>
-		 			  		</td>
-		 			  	</tr>
-		 			  <% end %>
-					<% end %>
+		  	<tbody>	
+	 			  <% @quantities.each do |quantity| %>
+	 			  	<tr>
+	 			  		<td>
+	 			  			<% quantity.topics.each do |topic| %>
+	 			  		    <%= topic.name %>
+	 			  		  <% end %>
+	 			  		</td>
+	 			  		<td>
+	 			  			<% if quantity.unit_id == 1 %>
+	 			  				<%= quantity.number*100 %> %
+	 			  			<% else %>
+	 			  				<%= number_to_human quantity.number %>
+	 			  			<% end %>
+	 			  		</td>
+	 			  		<td>
+	 			  			<% @quantity_type = QuantityType.find quantity.quantity_type_id %>
+	 			  			<%= @quantity_type.name %>
+	 			  		</td>
+	 			  		<td>
+	 			  			<% if quantity.date.blank? == false %>
+	 			  				<%= quantity.date.strftime("%B %d, %Y") %>
+	 			  			<% end %>
+	 			  		</td>
+	 			  		<td>
+	 			  			<% @source = Source.find quantity.source_id %>
+	 			  			<a href="<%= @source.URL %>"><%= @source.title %></a>
+	 			  		</td>
+	 			  	</tr>
+	 			  <% end %>
 		  	</tbody>
 		  </table>
 		</div>
 		<div class="col-md-5">
 			<% chart_ids = Array.new %>
-			<% @topics.each do |topic| %>
-				<% topic.quantities.each do |quantity| %>
-				  <% quantity.datasets.each do |dataset| %>
-				  	<% dataset.charts.each do |chart| %>
-				  	  <% if chart_ids.include?(chart.id) == false %>
-					  	  <iframe id= "chart-<%= chart.id %>" src="/charts/embed/<%= chart.id %>" width="100%" style="border-width:0" onload="setIframeHeight(this.id)"></iframe>
-					  	  <% chart_ids.push(chart.id) %>
-					  	<% end %>
+			<% @quantities.each do |quantity| %>
+			  <% quantity.datasets.each do |dataset| %>
+			  	<% dataset.charts.each do |chart| %>
+			  	  <% if chart_ids.include?(chart.id) == false %>
+				  	  <iframe id= "chart-<%= chart.id %>" src="/charts/embed/<%= chart.id %>" width="100%" style="border-width:0" onload="setIframeHeight(this.id)"></iframe>
+				  	  <% chart_ids.push(chart.id) %>
 				  	<% end %>
-				  <% end %>
-				<% end %>
+			  	<% end %>
+			  <% end %>
 			<% end %>
 		</div>
 	</div>
 </div>
+<%= paginate @quantities %>
+<!-- need to break it up into chart search and facts search pages -->
 
 <script>
 function getDocHeight(doc) {
@@ -92,15 +90,3 @@ function setIframeHeight(id) {
     ifrm.style.visibility = 'visible';
 }
 </script>
-
-<!--
-
-Quantity:
-
-topics, value, quantity type
-
-Charts:
-
-embed actual charts
-
--->

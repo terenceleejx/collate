@@ -181,6 +181,7 @@ DEPENDENCIES
   devise (~> 3.3.0)
   jbuilder (~> 2.0)
   jquery-rails
+  kaminari (~> 0.16.1)
   pg (~> 0.17.1)
   rails (= 4.1.6)
   rails_12factor

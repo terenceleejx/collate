@@ -4,6 +4,6 @@ class HomeController < ApplicationController
 	def about
 	end
 	def search
-		@topics = Topic.search params[:keywords]
+		@quantities = Quantity.search params[:keywords], page: params[:page], per_page: 20
 	end
 end
