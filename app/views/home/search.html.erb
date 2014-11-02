@@ -1,23 +1,24 @@
-<div class="table-responsive">
+<div class="row">
+	<h1>Search results</h1>
+	<%= form_tag("/search", method: "get", class: "form-inline", role: "form", style: "margin: 15px 0px") do %>
+		<div class="form-group">
+			<%= label_tag :search, "Search", class: "sr-only" %>
+			<%= text_field_tag :keywords, nil, placeholder: params[:keywords], class: "form-control", id: "search" %>
+		</div>
+		<div class="form-group">
+			<label class="radio-inline" for="type_stats">
+				<%= radio_button_tag :type, "Stats" %> Stats
+			</label>
+			<label class="radio-inline" for="type_charts">
+				<%= radio_button_tag :type, "Charts" %> Charts
+			</label>
+		</div>
+		<%= submit_tag "Search", class: "btn btn-default" %>
+	<% end %>
+</div>
+<% if params[:type] == "Stats" %>
 	<div class="row">
-		<%= form_tag("/search", method: "get", class: "form-inline", role: "form", style: "margin: 15px 0px") do %>
-			<div class="form-group">
-				<%= label_tag :search, "Search", class: "sr-only" %>
-				<%= text_field_tag :keywords, nil, placeholder: params[:keywords], class: "form-control", id: "search" %>
-			</div>
-			<div class="form-group">
-				<label class="radio-inline" for="type_stats">
-					<%= radio_button_tag :type, "Stats" %> Stats
-				</label>
-				<label class="radio-inline" for="type_charts">
-					<%= radio_button_tag :type, "Charts" %> Charts
-				</label>
-			</div>
-			<%= submit_tag "Search", class: "btn btn-default" %>
-		<% end %>
-	</div>
-	<% if params[:type] == "Stats" %>
-		<div class="row">
+		<div class="table-responsive">
 		  <table class="table">
 		  	<thead>
 		  		<tr>
@@ -58,42 +59,49 @@
 	 			  		</td>
 	 			  	</tr>
 	 			  <% end %>
+	 			  <tr>
+	 			  	<td colspan="5">
+	 			  		<strong>Not what you what? Add a new <a href="/quantities/new">stat</a>.</strong>
+	 			  	</td>
+	 			  </tr>
 		  	</tbody>
 		  </table>
 		</div>
-	<% else %>
-			<% chart_ids = Array.new %>
-			<% chart_count = 0 %>
-			<% @quantities.each do |quantity| %>
-			  <% quantity.datasets.each do |dataset| %>
-			  	<% dataset.charts.each do |chart| %>
-			  	  <% if chart_ids.include?(chart.id) == false %>
-			  	  	<% if chart_count == 0 %>
-			  	  	  <div class="row">
-			  	  	  	<div class="col-md-4">
-							  	  <iframe id= "chart-<%= chart.id %>" src="/charts/embed/<%= chart.id %>" width="100%" style="border-width:0" onload="setIframeHeight(this.id)"></iframe>
-							  	</div>
-							  <% chart_ids.push(chart.id) %>
-							  <% chart_count = 1 %>
-							<% elsif chart_count == 1 %>
-									<div class="col-md-4">
-							  	  <iframe id= "chart-<%= chart.id %>" src="/charts/embed/<%= chart.id %>" width="100%" style="border-width:0" onload="setIframeHeight(this.id)"></iframe>
-							  	</div>
-							  <% chart_count = 2 %>
-							<% else %>
-									<div class="col-md-4">
-							  	  <iframe id= "chart-<%= chart.id %>" src="/charts/embed/<%= chart.id %>" width="100%" style="border-width:0" onload="setIframeHeight(this.id)"></iframe>
-							  	</div>
-							  <% chart_count = 0 %>
-							<% end %>
-							  </div>
-				  	<% end %>
+	</div>
+<% else %>
+		<% chart_ids = Array.new %>
+		<% chart_count = 0 %>
+		<% @quantities.each do |quantity| %>
+		  <% quantity.datasets.each do |dataset| %>
+		  	<% dataset.charts.each do |chart| %>
+		  	  <% if chart_ids.include?(chart.id) == false %>
+		  	  	<% if chart_count == 0 %>
+		  	  	  <div class="row">
+		  	  	  	<div class="col-md-4">
+						  	  <iframe id= "chart-<%= chart.id %>" src="/charts/embed/<%= chart.id %>" width="100%" style="border-width:0" onload="setIframeHeight(this.id)"></iframe>
+						  	</div>
+						  <% chart_ids.push(chart.id) %>
+						  <% chart_count = 1 %>
+						<% elsif chart_count == 1 %>
+								<div class="col-md-4">
+						  	  <iframe id= "chart-<%= chart.id %>" src="/charts/embed/<%= chart.id %>" width="100%" style="border-width:0" onload="setIframeHeight(this.id)"></iframe>
+						  	</div>
+						  <% chart_count = 2 %>
+						<% else %>
+								<div class="col-md-4">
+						  	  <iframe id= "chart-<%= chart.id %>" src="/charts/embed/<%= chart.id %>" width="100%" style="border-width:0" onload="setIframeHeight(this.id)"></iframe>
+						  	</div>
+						  <% chart_count = 0 %>
+						<% end %>
+						  </div>
 			  	<% end %>
-			  <% end %>
-			<% end %>
-	<% end %>
+		  	<% end %>
+		  <% end %>
+		<% end %>
+<% end %>
+<div class="row">
+	<%= paginate @quantities %>
 </div>
-<%= paginate @quantities %>
 
 <script>
 function getDocHeight(doc) {

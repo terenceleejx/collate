@@ -12,6 +12,7 @@ Collate::Application.routes.draw do
   get 'about' => 'home#about'
   get 'search' => 'home#search'
   post 'search' => 'home#search'
+  resources :quantities
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
