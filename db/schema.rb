@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141108012946) do
+ActiveRecord::Schema.define(version: 20141108120929) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,6 +53,7 @@ ActiveRecord::Schema.define(version: 20141108012946) do
     t.integer  "unit_id"
     t.integer  "quantity_type_id"
     t.text     "notes"
+    t.integer  "user_id"
   end
 
   create_table "quantity_datasets", force: true do |t|

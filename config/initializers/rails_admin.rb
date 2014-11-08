@@ -34,4 +34,15 @@ RailsAdmin.config do |config|
     # history_index
     # history_show
   end
+
+  config.model Quantity do 
+    edit do 
+      field :user_id, :hidden do
+        default_value do
+          bindings[:view]._current_user.id
+        end
+      end
+      include_all_fields
+    end 
+  end
 end
