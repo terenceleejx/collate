@@ -1,12 +1,15 @@
 RailsAdmin.config do |config|
+  class RailsAdmin::Config::Fields::Types::Inet < RailsAdmin::Config::Fields::Base
+    RailsAdmin::Config::Fields::Types::register(self)
+  end
 
   ### Popular gems integration
 
   ## == Devise ==
   config.authenticate_with do
-    warden.authenticate! scope: :admin
+    warden.authenticate! scope: :user
   end
-  config.current_user_method(&:current_admin)
+  config.current_user_method(&:current_user)
 
   ## == Cancan ==
   # config.authorize_with :cancan

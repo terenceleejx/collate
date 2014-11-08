@@ -9,6 +9,7 @@ class Quantity < ActiveRecord::Base
 	end
 	has_many :quantity_topics
 	has_many :topics, through: :quantity_topics
+	accepts_nested_attributes_for :topics
 	has_many :quantity_datasets
 	has_many :datasets, through: :quantity_datasets
 	validates :number, numericality: true
