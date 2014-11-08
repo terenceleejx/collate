@@ -1,5 +1,4 @@
 Collate::Application.routes.draw do
-  devise_for :admins
   devise_for :users
   mount RailsAdmin::Engine => '/backyard', as: 'rails_admin'
   # The priority is based upon order of creation: first created -> highest priority.
@@ -12,7 +11,6 @@ Collate::Application.routes.draw do
   get 'about' => 'home#about'
   get 'search' => 'home#search'
   post 'search' => 'home#search'
-  resources :quantities
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
