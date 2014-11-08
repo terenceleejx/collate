@@ -4,4 +4,6 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
   has_many :quantities
+  has_many :charts
+  has_many :datasets
 end

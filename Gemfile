@@ -38,6 +38,7 @@ gem 'autoprefixer-rails', '~> 3.1.2.20141016'
 
 gem 'searchkick', '~> 0.8.3'
 gem 'kaminari', '~> 0.16.1'
+gem 'cancan', '~> 1.6.10'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
