@@ -15,4 +15,5 @@ class Quantity < ActiveRecord::Base
 	belongs_to :unit
 	belongs_to :quantity_type
 	belongs_to :source
+	belongs_to :user
 end

@@ -4,7 +4,7 @@ class Ability
   def initialize(user)
     if user.admin?
       can :manage, :all
-    elsif user.admin.blank?
+    else
       can :access, :rails_admin       
       can :dashboard                 
       can :read, [Unit, Source, QuantityType, Topic, ChartType]
