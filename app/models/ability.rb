@@ -4,8 +4,6 @@ class Ability
   def initialize(user)
     if user.admin?
       can :manage, :all
-      can :access, :rails_admin       
-      can :dashboard   
     else
       can :access, :rails_admin       
       can :dashboard                 
