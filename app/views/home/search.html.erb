@@ -17,87 +17,87 @@
 	<% end %>
 </div>
 <% if params[:type] == "Stats" %>
-	<div class="row">
-		<div class="table-responsive">
-		  <table class="table">
-		  	<thead>
-		  		<tr>
-		  			<th>Topic</th>
-		  			<th>Value</th>
-		  			<th>Type</th>
-		  			<th>Date</th>
-		  			<th>Source</th>
-		  		</tr>
-		  	</thead>
-		  	<tbody>	
-	 			  <% @quantities.each do |quantity| %>
-	 			  	<tr>
-	 			  		<td>
-	 			  			<% quantity.topics.each do |topic| %>
-	 			  		    <%= topic.name %>
-	 			  		  <% end %>
-	 			  		</td>
-	 			  		<td>
-	 			  			<% if quantity.unit_id == 1 %>
-	 			  				<%= quantity.number*100 %> %
-	 			  			<% else %>
-	 			  				<%= number_to_human quantity.number %>
-	 			  			<% end %>
-	 			  		</td>
-	 			  		<td>
-	 			  			<% @quantity_type = QuantityType.find quantity.quantity_type_id %>
-	 			  			<%= @quantity_type.name %>
-	 			  		</td>
-	 			  		<td>
-	 			  			<% if quantity.date.blank? == false %>
-	 			  				<%= quantity.date.strftime("%B %d, %Y") %>
-	 			  			<% end %>
-	 			  		</td>
-	 			  		<td>
-	 			  			<% @source = Source.find quantity.source_id %>
-	 			  			<a href="<%= @source.URL %>"><%= @source.title %></a>
-	 			  		</td>
-	 			  	</tr>
-	 			  <% end %>
-	 			  <tr>
-	 			  	<td colspan="5">
-	 			  		<strong>Not what you what? Add a new <a href="/backyard/quantity/new">stat</a>.</strong>
-	 			  	</td>
-	 			  </tr>
-		  	</tbody>
-		  </table>
-		</div>
+<div class="row">
+	<div class="table-responsive">
+	  <table class="table">
+	  	<thead>
+	  		<tr>
+	  			<th>Topic</th>
+	  			<th>Value</th>
+	  			<th>Type</th>
+	  			<th>Date</th>
+	  			<th>Source</th>
+	  		</tr>
+	  	</thead>
+	  	<tbody>	
+ 			  <% @quantities.each do |quantity| %>
+ 			  	<tr>
+ 			  		<td>
+ 			  			<% quantity.topics.each do |topic| %>
+ 			  		    <%= topic.name %>
+ 			  		  <% end %>
+ 			  		</td>
+ 			  		<td>
+ 			  			<% if quantity.unit_id == 1 %>
+ 			  				<%= quantity.number*100 %> %
+ 			  			<% else %>
+ 			  				<%= number_to_human quantity.number %>
+ 			  			<% end %>
+ 			  		</td>
+ 			  		<td>
+ 			  			<% @quantity_type = QuantityType.find quantity.quantity_type_id %>
+ 			  			<%= @quantity_type.name %>
+ 			  		</td>
+ 			  		<td>
+ 			  			<% if quantity.date.blank? == false %>
+ 			  				<%= quantity.date.strftime("%B %d, %Y") %>
+ 			  			<% end %>
+ 			  		</td>
+ 			  		<td>
+ 			  			<% @source = Source.find quantity.source_id %>
+ 			  			<a href="<%= @source.URL %>"><%= @source.title %></a>
+ 			  		</td>
+ 			  	</tr>
+ 			  <% end %>
+ 			  <tr>
+ 			  	<td colspan="5">
+ 			  		<strong>Not what you what? Add a new <a href="/backyard/quantity/new">stat</a>.</strong>
+ 			  	</td>
+ 			  </tr>
+	  	</tbody>
+	  </table>
 	</div>
+</div>
 <% else %>
-		<% chart_ids = Array.new %>
-		<% chart_count = 0 %>
-		<% @quantities.each do |quantity| %>
-		  <% quantity.datasets.each do |dataset| %>
-		  	<% dataset.charts.each do |chart| %>
-		  	  <% if chart_ids.include?(chart.id) == false %>
-		  	  	<% if chart_count == 0 %>
-		  	  	  <div class="row">
-		  	  	  	<div class="col-md-4">
-						  	  <iframe id= "chart-<%= chart.id %>" src="/charts/embed/<%= chart.id %>" width="100%" style="border-width:0" onload="setIframeHeight(this.id)"></iframe>
-						  	</div>
-						  <% chart_ids.push(chart.id) %>
-						  <% chart_count = 1 %>
-						<% elsif chart_count == 1 %>
-								<div class="col-md-4">
-						  	  <iframe id= "chart-<%= chart.id %>" src="/charts/embed/<%= chart.id %>" width="100%" style="border-width:0" onload="setIframeHeight(this.id)"></iframe>
-						  	</div>
-						  <% chart_count = 2 %>
-						<% else %>
-								<div class="col-md-4">
-						  	  <iframe id= "chart-<%= chart.id %>" src="/charts/embed/<%= chart.id %>" width="100%" style="border-width:0" onload="setIframeHeight(this.id)"></iframe>
-						  	</div>
-						  <% chart_count = 0 %>
-						<% end %>
-						  </div>
-			  	<% end %>
+	<% chart_ids = Array.new %>
+	<% chart_count = 0 %>
+	<% @quantities.each do |quantity| %>
+	  <% quantity.datasets.each do |dataset| %>
+	  	<% dataset.charts.each do |chart| %>
+	  	  <% if chart_ids.include?(chart.id) == false %>
+	  	  	<% if chart_count == 0 %>
+	  	  	  <div class="row">
+	  	  	  	<div class="col-md-4">
+					  	  <iframe id= "chart-<%= chart.id %>" src="/charts/embed/<%= chart.id %>" width="100%" style="border-width:0" onload="setIframeHeight(this.id)"></iframe>
+					  	</div>
+					  <% chart_ids.push(chart.id) %>
+					  <% chart_count = 1 %>
+					<% elsif chart_count == 1 %>
+							<div class="col-md-4">
+					  	  <iframe id= "chart-<%= chart.id %>" src="/charts/embed/<%= chart.id %>" width="100%" style="border-width:0" onload="setIframeHeight(this.id)"></iframe>
+					  	</div>
+					  <% chart_count = 2 %>
+					<% else %>
+							<div class="col-md-4">
+					  	  <iframe id= "chart-<%= chart.id %>" src="/charts/embed/<%= chart.id %>" width="100%" style="border-width:0" onload="setIframeHeight(this.id)"></iframe>
+					  	</div>
+					  <% chart_count = 0 %>
+					<% end %>
+					  </div>
 		  	<% end %>
-		  <% end %>
-		<% end %>
+	  	<% end %>
+	  <% end %>
+	<% end %>
 <% end %>
 <div class="row">
 	<%= paginate @quantities %>
