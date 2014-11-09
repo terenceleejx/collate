@@ -65,7 +65,6 @@ RailsAdmin.config do |config|
           bindings[:view]._current_user.id
         end
       end
-      include_all_fields
     end 
   end
   config.model Dataset do 
