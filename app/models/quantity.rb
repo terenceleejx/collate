@@ -12,4 +12,7 @@ class Quantity < ActiveRecord::Base
 	has_many :quantity_datasets
 	has_many :datasets, through: :quantity_datasets
 	validates :number, numericality: true
+	belongs_to :unit
+	belongs_to :quantity_type
+	belongs_to :source
 end

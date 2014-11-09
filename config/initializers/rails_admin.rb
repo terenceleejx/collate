@@ -38,6 +38,33 @@ RailsAdmin.config do |config|
 
   config.model Quantity do 
     edit do 
+      field :number
+      field :date
+      field :topics
+      field :unit, :belongs_to_association
+      field :quantity_type, :belongs_to_association
+      field :source, :belongs_to_association
+      field :datasets
+      field :notes
+      field :user_id, :hidden do
+        default_value do
+          bindings[:view]._current_user.id
+        end
+      end
+    end 
+  end
+  config.model Chart do 
+    edit do 
+      field :user_id, :hidden do
+        default_value do
+          bindings[:view]._current_user.id
+        end
+      end
+      include_all_fields
+    end 
+  end
+  config.model Dataset do 
+    edit do 
       field :user_id, :hidden do
         default_value do
           bindings[:view]._current_user.id
