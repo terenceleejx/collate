@@ -77,18 +77,18 @@
 	  	  <% if chart_ids.include?(chart.id) == false %>
 	  	  	<% if chart_count == 0 %>
 	  	  	  <div class="row">
-	  	  	  	<div class="col-md-4">
+	  	  	  	<div class="col-sm-4">
 					  	  <iframe id= "chart-<%= chart.id %>" src="/charts/embed/<%= chart.id %>" width="100%" style="border-width:0" onload="setIframeHeight(this.id)"></iframe>
 					  	</div>
 					  <% chart_ids.push(chart.id) %>
 					  <% chart_count = 1 %>
 					<% elsif chart_count == 1 %>
-							<div class="col-md-4">
+							<div class="col-sm-4">
 					  	  <iframe id= "chart-<%= chart.id %>" src="/charts/embed/<%= chart.id %>" width="100%" style="border-width:0" onload="setIframeHeight(this.id)"></iframe>
 					  	</div>
 					  <% chart_count = 2 %>
 					<% else %>
-							<div class="col-md-4">
+							<div class="col-sm-4">
 					  	  <iframe id= "chart-<%= chart.id %>" src="/charts/embed/<%= chart.id %>" width="100%" style="border-width:0" onload="setIframeHeight(this.id)"></iframe>
 					  	</div>
 					  <% chart_count = 0 %>
