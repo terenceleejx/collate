@@ -7,7 +7,7 @@ class Ability
     else
       can :access, :rails_admin       
       can :dashboard                 
-      can :read, [Unit, Source, QuantityType, Topic, ChartType]
+      can :read, [Unit, Source, QuantityType, Topic, ChartType, User]
       can :create, [Quantity, Unit, Source, QuantityType, Chart, Dataset, Topic]
       can [:read, :update, :destroy], [Quantity, Chart, Dataset], user_id: user.id
     end
