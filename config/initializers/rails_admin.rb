@@ -3,6 +3,7 @@ RailsAdmin.config do |config|
     RailsAdmin::Config::Fields::Types::register(self)
   end
 
+  config.main_app_name = ["Statsy", "Admin"]
   ### Popular gems integration
 
   ## == Devise ==
@@ -55,6 +56,10 @@ RailsAdmin.config do |config|
   end
   config.model Chart do 
     edit do 
+      field :name
+      field :chart_type
+      field :colors
+      field :datasets
       field :user_id, :hidden do
         default_value do
           bindings[:view]._current_user.id

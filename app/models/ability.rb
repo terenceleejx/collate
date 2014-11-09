@@ -7,7 +7,7 @@ class Ability
     else
       can :access, :rails_admin       # only allow admin users to access Rails Admin
       can :dashboard                  # allow access to dashboard
-      can :read, [Unit, Source, QuantityType, Topic]
+      can :read, [Unit, Source, QuantityType, Topic, ChartType]
       can :create, [Quantity, Unit, Source, QuantityType, Chart, Dataset, Topic]
       can [:read, :update, :destroy], [Quantity, Chart, Dataset], user_id: user.id
     end
