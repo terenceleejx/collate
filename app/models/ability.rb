@@ -9,9 +9,7 @@ class Ability
     else
       can :access, :rails_admin
       can :dashboard   
-      can [:read, :create], [Unit, Source, QuantityType, Topic]
-      can :read, ChartType
-      can :manage, [Quantity, Chart, Dataset], user_id: user.id
+      can :read, :all
     end
     # Define abilities for the passed in user here. For example:
     #
