@@ -3,13 +3,15 @@ class Ability
 
   def initialize(user)
     if user.admin?
-      can :manage, :all
-    else
       can :access, :rails_admin       
-      can :dashboard                 
-      can :read, [Unit, Source, QuantityType, Topic, ChartType, User]
-      can :create, [Quantity, Unit, Source, QuantityType, Chart, Dataset, Topic]
-      can [:read, :update, :destroy], [Quantity, Chart, Dataset], user_id: user.id
+      can :dashboard
+      can :manage, :all 
+    else
+      can :access, :rails_admin
+      can :dashboard   
+      can [:read, :create], [Unit, Source, QuantityType, Topic]
+      can :read, ChartType
+      can :manage, [Quantity, Chart, Dataset], user_id: user.id
     end
     # Define abilities for the passed in user here. For example:
     #
