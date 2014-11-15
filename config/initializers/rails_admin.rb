@@ -71,6 +71,7 @@ RailsAdmin.config do |config|
     edit do 
       field :name
       field :topic_id
+      field :quantities
       field :user_id, :hidden do
         default_value do
           bindings[:view]._current_user.id
