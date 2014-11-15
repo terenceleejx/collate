@@ -47,11 +47,11 @@ RailsAdmin.config do |config|
       field :source, :belongs_to_association
       field :datasets
       field :notes
-      field :user_id, :hidden do
-        default_value do
-          bindings[:view]._current_user.id
-        end
-      end
+      field :user_id#, :hidden do
+        #default_value do
+          #bindings[:view]._current_user.id
+        #end
+      #end
     end 
   end
   config.model Chart do 
@@ -60,21 +60,22 @@ RailsAdmin.config do |config|
       field :chart_type
       field :colors
       field :datasets
-      field :user_id, :hidden do
-        default_value do
-          bindings[:view]._current_user.id
-        end
-      end
+      field :user_id#, :hidden do
+        #default_value do
+          #bindings[:view]._current_user.id
+        #end
+      #end
     end 
   end
   config.model Dataset do 
     edit do 
-      field :user_id, :hidden do
-        default_value do
-          bindings[:view]._current_user.id
-        end
-      end
-      include_all_fields
+      field :name
+      field :topic_id
+      field :user_id#, :hidden do
+        #default_value do
+          #bindings[:view]._current_user.id
+        #end
+      #end
     end 
   end
 end
