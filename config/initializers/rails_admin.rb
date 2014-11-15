@@ -38,6 +38,9 @@ RailsAdmin.config do |config|
   end
 
   config.model Quantity do 
+    object_label_method do
+      :custom_label_method
+    end 
     edit do 
       field :number
       field :date
@@ -52,8 +55,17 @@ RailsAdmin.config do |config|
           bindings[:view]._current_user.id
         end
       end
-    end 
+    end
   end
+
+  def custom_label_method
+    topic_string = String.new
+    self.topics.each do |topic|
+      topic_string += "#{topic.name} "
+    end
+    topic_string + "#{self.number}"
+  end
+
   config.model Chart do 
     edit do 
       field :name
