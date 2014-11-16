@@ -82,7 +82,7 @@ RailsAdmin.config do |config|
   config.model Dataset do 
     edit do 
       field :name
-      field :topic_id
+      field :topic
       field :quantities
       field :user_id, :hidden do
         default_value do

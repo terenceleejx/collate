@@ -33,10 +33,12 @@
       // add columns first. Each column represents one object. Each data point separated by time.
       data.addColumn('date', 'Date');
       <% @chart.datasets.each do |dataset| %>
+
+        // chart takes reference from first dataset for date. Which means it doesn't matter what dates are the other data points as long as they're in order.
         data.addColumn('number', '<%= Topic.find(dataset.topic_id).name %>');
       <% end %>
 
-      // add placeholder arrays first
+      // add placeholder arrays first dataset
       <% date_count = 0 %>
       <% @chart.datasets.first.quantities.each do |quantity| %>
 
@@ -47,8 +49,8 @@
       <% end %>
 
       // fill in data for each array
-      <% date_count = 0 %>
       <% @chart.datasets.each do |dataset| %>
+        <% date_count = 0 %>
         <% dataset.quantities.each do |quantity| %>
           date<%= date_count %>.push(<%= quantity.number %>);
           <% date_count += 1 %>
