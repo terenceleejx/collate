@@ -45,8 +45,10 @@
  			  			<% end %>
  			  		</td>
  			  		<td>
- 			  			<% @quantity_type = QuantityType.find quantity.quantity_type_id %>
- 			  			<%= @quantity_type.name %>
+ 			  			<% if quantity.quantity_type_id.blank? == false %>
+	 			  			<% @quantity_type = QuantityType.find quantity.quantity_type_id %>
+	 			  			<%= @quantity_type.name %>
+	 			  		<% end %>
  			  		</td>
  			  		<td>
  			  			<% if quantity.date.blank? == false %>
@@ -54,8 +56,10 @@
  			  			<% end %>
  			  		</td>
  			  		<td>
- 			  			<% @source = Source.find quantity.source_id %>
- 			  			<a href="<%= @source.URL %>"><%= @source.title %></a>
+ 			  			<% if quantity.source_id.blank? == false %>
+	 			  			<% @source = Source.find quantity.source_id %>
+	 			  			<a href="<%= @source.URL %>"><%= @source.title %></a>
+	 			  		<% end %>
  			  		</td>
  			  	</tr>
  			  <% end %>
