@@ -1,60 +1,100 @@
 <% data = Array.new %>
-<%# bar chart %>
-<% if @chart.chart_type_id == 2 %> 
-	<script>
+<script>
 
-    // Load the Visualization API and the piechart package.
-    google.load('visualization', '1.0', {'packages':['corechart']});
+  // Load the Visualization API and the piechart package.
+  google.load('visualization', '1.0', {'packages':['corechart']});
 
-    // Set a callback to run when the Google Visualization API is loaded.
-    google.setOnLoadCallback(drawChart);
+  // Set a callback to run when the Google Visualization API is loaded.
+  google.setOnLoadCallback(drawChart);
 
-    // Callback that creates and populates a data table,
-    // instantiates the pie chart, passes in the data and
-    // draws it.
-    function drawChart() {
+  // Callback that creates and populates a data table,
+  // instantiates the pie chart, passes in the data and
+  // draws it.
+  function drawChart() {
 
-      // Create the data table.
-      var data = new google.visualization.DataTable();
+    // Create the data table.
+    var data = new google.visualization.DataTable();
+    // bar chart
+    <% if @chart.chart_type_id == 2 %>
       data.addColumn('string', '<%= Topic.find(@chart.datasets.take.topic_id).name %>');
       data.addColumn('number', '<%= QuantityType.find(@chart.datasets.take.quantities.take.quantity_type_id).name %>');
       <% @chart.datasets.take.quantities.each do |quantity| %>
-	  		<% quantity.topics.each do |topic|  %>
-	  			<% if topic.category_id == @chart.datasets.take.topic_id %>
-	  				<% data.push([topic.name, quantity.number.to_f])  %>
-	  			<% end %>
-	  		<% end %>
-			<% end %>
-			<% sorted_data = data.sort { |a,b| b[1] <=> a[1]} %>
-      data.addRows(<%= sorted_data.to_json.html_safe %>);
-      <% chart_height = data.length * 70 %>
-
-      // Set chart options
-      var options = {'title':'<%= @chart.name %>',
-                     'width':'100%',
-                     'height': <%= chart_height %>,
-                   	 'colors':<%= @chart.colors.to_json.html_safe %>,
-                   	 titleTextStyle: {fontSize: 16},
-                     legend: { position: "none" },
-                   	 'fontName': 'Helvetica Neue',
-                     <% if @chart.datasets.first.quantities.take.unit_id == 1 %>
-                       hAxis: {format: '##%'}
-                     <% end %>
-                   	};
-
-      <% if @chart.datasets.first.quantities.take.unit_id == 1 %>          
-        var formatter = new google.visualization.NumberFormat({pattern:'#,###%'});
-      <% else %>
-        var formatter = new google.visualization.NumberFormat({pattern:'#,###'});
+        <% quantity.topics.each do |topic|  %>
+          <% if topic.category_id == @chart.datasets.take.topic_id %>
+            <% data.push([topic.name, quantity.number.to_f])  %>
+          <% end %>
+        <% end %>
       <% end %>
-        formatter.format(data, 1);
+      <% sorted_data = data.sort { |a,b| b[1] <=> a[1]} %>
+      data.addRows(<%= sorted_data.to_json.html_safe %>);
+    // line chart
+    <% elsif @chart.chart_type_id == 4 %>
 
-      // Instantiate and draw our chart, passing in some options.
+      // add columns first. Each column represents one object. Each data point separated by time.
+      data.addColumn('date', 'Date');
+      <% @chart.datasets.each do |dataset| %>
+        data.addColumn('number', '<%= Topic.find(dataset.topic_id).name %>');
+      <% end %>
+
+      // add placeholder arrays first
+      <% date_count = 0 %>
+      <% @chart.datasets.first.quantities.each do |quantity| %>
+        var javascript_date = new Date(<%= Time.parse(quantity.date.to_s).utc.to_i*1000 %>)
+        var date<%= date_count %> = [javascript_date];
+        <% date_count += 1 %>
+      <% end %>
+
+      // fill in data for each array
+      <% date_count = 0 %>
+      <% @chart.datasets.each do |dataset| %>
+        <% dataset.quantities.each do |quantity| %>
+          date<%= date_count %>.push(<%= quantity.number %>);
+          <% date_count += 1 %>
+        <% end %>
+      <% end %>
+
+      // add each array to overall data array
+      <% (1..date_count).each do |i| %>
+        data.addRow(date<%= i-1 %>);
+      <% end %>
+
+      //sort data by time
+      data.sort(function(a, b) {
+        return a[0] > b[0] ? 1 : -1;
+      });
+    <% end %>
+
+    <% chart_height = data.length * 70 %>
+
+    // Set chart options
+    var options = {'title':'<%= @chart.name %>',
+                   'width':'100%',
+                   'height': <%= chart_height %>,
+                 	 'colors':<%= @chart.colors.to_json.html_safe %>,
+                 	 titleTextStyle: {fontSize: 16},
+                   legend: { position: "none" },
+                 	 'fontName': 'Helvetica Neue',
+                   <% if @chart.datasets.first.quantities.first.unit_id == 1 %>
+                     hAxis: {format: '##%'}
+                   <% end %>
+                 	};
+
+    <% if @chart.datasets.first.quantities.first.unit_id == 1 %>          
+      var formatter = new google.visualization.NumberFormat({pattern:'#,###%'});
+    <% else %>
+      var formatter = new google.visualization.NumberFormat({pattern:'#,###'});
+    <% end %>
+    formatter.format(data, 1);
+
+    // Instantiate and draw our chart, passing in some options.
+    <% if @chart.chart_type_id == 2 %>
       var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
-      chart.draw(data, options);
-    }
-  </script>
-<% end %>
+    <% elsif @chart.chart_type_id == 4 %>
+      var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+    <% end %>      
+    chart.draw(data, options);
+  }
+</script>
 <div class="row">
   <div class="col-md-8">
     <div id="chart_div"></div>
