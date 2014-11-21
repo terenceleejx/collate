@@ -53,7 +53,7 @@
       // fill in data for each array
       <% @chart.datasets.each do |dataset| %>
         <% date_count = 0 %>
-        <% dataset.quantities.order(date: :desc).each do |quantity| %>
+        <% dataset.quantities.order(date: :asc).each do |quantity| %>
           date<%= date_count %>.push(<%= quantity.number %>);
           <% date_count += 1 %>
         <% end %>
