@@ -63,7 +63,7 @@ RailsAdmin.config do |config|
     self.topics.each do |topic|
       topic_string += "#{topic.name} "
     end
-    topic_string + "#{self.number}"
+    topic_string + "#{self.number} #{self.date}"
   end
 
   config.model Chart do 

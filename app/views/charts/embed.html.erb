@@ -42,7 +42,7 @@
 
       // add placeholder arrays first dataset
       <% date_count = 0 %>
-      <% @chart.datasets.first.quantities.each do |quantity| %>
+      <% @chart.datasets.first.quantities.order("date").each do |quantity| %>
 
         // convert Ruby date to Javascript date
         var javascript_date = new Date(<%= Time.parse(quantity.date.to_s).utc.to_i*1000 %>)
@@ -53,7 +53,7 @@
       // fill in data for each array
       <% @chart.datasets.each do |dataset| %>
         <% date_count = 0 %>
-        <% dataset.quantities.order(date: :asc).each do |quantity| %>
+        <% dataset.quantities.order("date").each do |quantity| %>
           date<%= date_count %>.push(<%= quantity.number %>);
           <% date_count += 1 %>
         <% end %>
@@ -62,7 +62,7 @@
       // add each array to overall data array
       var row_data = [];
       <% (1..date_count).each do |i| %>
-        row_data.push(date<%=i-1 %>);
+        row_data.push(date<%= i-1 %>);
       <% end %>
 
       data.addRows(row_data);
