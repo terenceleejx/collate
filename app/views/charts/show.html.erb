@@ -53,7 +53,7 @@
       // fill in data for each array
       <% @chart.datasets.each do |dataset| %>
         <% date_count = 0 %>
-        <% dataset.quantities.each do |quantity| %>
+        <% dataset.quantities.sort_by { |hash| hash[:date] }.each do |quantity| %>
           date<%= date_count %>.push(<%= quantity.number %>);
           <% date_count += 1 %>
         <% end %>
@@ -64,11 +64,6 @@
       <% (1..date_count).each do |i| %>
         row_data.push(date<%=i-1 %>);
       <% end %>
-
-      //sort data by time
-      row_data.sort(function(a, b) {
-        return a[0] > b[0] ? 1 : -1;
-      });
 
       data.addRows(row_data);
     <% end %>
