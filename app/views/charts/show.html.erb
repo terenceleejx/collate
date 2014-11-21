@@ -14,6 +14,7 @@
 
     // Create the data table.
     var data = new google.visualization.DataTable();
+
     // bar chart
     <% if @chart.chart_type_id == 2 %>
       data.addColumn('string', '<%= Topic.find(@chart.datasets.take.topic_id).name %>');
@@ -27,6 +28,7 @@
       <% end %>
       <% sorted_data = data.sort { |a,b| b[1] <=> a[1]} %>
       data.addRows(<%= sorted_data.to_json.html_safe %>);
+
     // line chart
     <% elsif @chart.chart_type_id == 4 %>
 
@@ -58,14 +60,17 @@
       <% end %>
 
       // add each array to overall data array
+      var row_data = [];
       <% (1..date_count).each do |i| %>
-        data.addRow(date<%= i-1 %>);
+        row_data.push(date<%=i-1 %>);
       <% end %>
 
       //sort data by time
-      data.sort(function(a, b) {
+      row_data.sort(function(a, b) {
         return a[0] > b[0] ? 1 : -1;
       });
+
+      data.addRows(row_data);
     <% end %>
 
     <% chart_height = @chart.datasets.first.quantities.count * 80 %>
