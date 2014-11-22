@@ -73,7 +73,12 @@
     <% chart_height = @chart.datasets.first.quantities.count * 80 %>
 
     // Set chart options
-    var options = {'title':'<%= @chart.name %>',
+    var options = {
+                   <% if @chart.datasets.first.quantities.first.unit_id == 2 %>  
+                   'title':'<%= @chart.name + " (US$)" %>',
+                   <% else %>
+                   'title':'<%= @chart.name %>',
+                   <% end %>
                    'width':'100%',
                    'height': <%= chart_height %>,
                    'colors':<%= @chart.colors.to_json.html_safe %>,
@@ -84,8 +89,6 @@
                    'fontName': 'Helvetica Neue',
                    <% if @chart.datasets.first.quantities.first.unit_id == 1 %>
                      hAxis: {format: '##%'}
-                   <% elsif @chart.datasets.first.quantities.first.unit_id == 2 %>
-                     hAxis: {format: 'US$##'}
                    <% end %>
                   };
 
