@@ -89,11 +89,11 @@
 
     // If number = percentage
     <% if @chart.datasets.first.quantities.first.unit_id == 1 %>          
-      var formatter = new google.visualization.NumberFormat({pattern:'#,###%'});
-    <% elsif @chart.datasets.first.quantities.first.number < 2 %>
-      var formatter = new google.visualization.NumberFormat({pattern:'#.##'});
+      var formatter = new google.visualization.NumberFormat({pattern:'#,###.##%'});
+    <% elsif @chart.datasets.first.quantities.first.unit_id == 2 %>
+      var formatter = new google.visualization.NumberFormat({prefix: 'US$', pattern:'#,###.##'});
     <% else %>
-      var formatter = new google.visualization.NumberFormat({pattern:'#,###'});
+      var formatter = new google.visualization.NumberFormat({pattern:'#,###.##'});
     <% end %>
     formatter.format(data, 1);
 
