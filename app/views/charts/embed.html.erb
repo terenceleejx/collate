@@ -20,9 +20,11 @@
       data.addColumn('string', '<%= Topic.find(@chart.datasets.take.topic_id).name %>');
       data.addColumn('number', '<%= QuantityType.find(@chart.datasets.take.quantities.take.quantity_type_id).name %>');
       <% @chart.datasets.take.quantities.each do |quantity| %>
-        <% quantity.topics.each do |topic|  %>
-          <% if topic.category_id == @chart.datasets.take.topic_id %>
-            <% data.push([topic.name, quantity.number.to_f])  %>
+        <% quantity.topics.each do |topic| %>
+          <% topic.topics.each do |category| %>
+            <% if category.id == @chart.datasets.take.topic_id %>
+              <% data.push([category.name, quantity.number.to_f])  %>
+            <% end %>
           <% end %>
         <% end %>
       <% end %>
