@@ -23,7 +23,7 @@
         <% quantity.topics.each do |topic| %>
           <% topic.topics.each do |category| %>
             <% if category.id == @chart.datasets.take.topic_id %>
-              <% data.push([category.name, quantity.number.to_f])  %>
+              <% data.push([topic.name, quantity.number.to_f])  %>
             <% end %>
           <% end %>
         <% end %>
