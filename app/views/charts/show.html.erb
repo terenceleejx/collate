@@ -84,6 +84,8 @@
                  	 'fontName': 'Helvetica Neue',
                    <% if @chart.datasets.first.quantities.first.unit_id == 1 %>
                      hAxis: {format: '##%'}
+                   <% elsif @chart.datasets.first.quantities.first.unit_id == 2 %>
+                     hAxis: {format: 'US$##'}
                    <% end %>
                  	};
 
