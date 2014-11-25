@@ -88,7 +88,10 @@
                    <% end %>
                    'fontName': 'Helvetica Neue',
                    <% if @chart.datasets.first.quantities.first.unit_id == 1 %>
-                     hAxis: {format: '##%'}
+                     hAxis: {format: '##%'},
+                   <% end %>
+                   <% if @chart.tooltip == false %>
+                    'tooltip': {trigger: 'none'}
                    <% end %>
                   };
 
@@ -122,7 +125,26 @@
     </textarea>
   </div>
 </div>
-
+<div class="row">
+  <div class="col-md-8">
+    <% sources = Array.new %>
+    <h3>Data sources</h3>
+    <% @chart.datasets.each do |dataset| %>
+      <% dataset.quantities.each do |quantity| %>
+        <% if quantity.source_id.blank? == false %>
+          <% if Source.find(quantity.source_id).title.blank? == false && Source.find(quantity.source_id).URL.blank? == false %>
+            <% if sources.include?([Source.find(quantity.source_id).title, Source.find(quantity.source_id).URL]) == false %>
+              <% sources.push [Source.find(quantity.source_id).title, Source.find(quantity.source_id).URL] %>
+            <% end %>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+    <% sources.each do |source| %>
+    <p><a href="<%= source[1] %>"><%= source[0] %></a></p>
+    <% end %>
+  </div>
+</div>
 <!--
 
 Embed code

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141122020404) do
+ActiveRecord::Schema.define(version: 20141125100102) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,12 +30,13 @@ ActiveRecord::Schema.define(version: 20141122020404) do
   end
 
   create_table "charts", force: true do |t|
-    t.text     "name",          null: false
+    t.text     "name",                         null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "chart_type_id", null: false
+    t.integer  "chart_type_id",                null: false
     t.text     "colors"
-    t.integer  "user_id",       null: false
+    t.integer  "user_id",                      null: false
+    t.boolean  "tooltip",       default: true
   end
 
   create_table "datasets", force: true do |t|

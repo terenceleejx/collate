@@ -88,7 +88,10 @@
                    <% end %>
                    'fontName': 'Helvetica Neue',
                    <% if @chart.datasets.first.quantities.first.unit_id == 1 %>
-                     hAxis: {format: '##%'}
+                     hAxis: {format: '##%'},
+                   <% end %>
+                   <% if @chart.tooltip == false %>
+                    'tooltip': {trigger: 'none'}
                    <% end %>
                   };
 
