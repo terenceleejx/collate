@@ -92,6 +92,7 @@
 					  	  <iframe id= "chart-<%= chart.id %>" src="/charts/embed/<%= chart.id %>" width="100%" style="border-width:0" onload="setIframeHeight(this.id)"></iframe>
 					  	  <p><a href="/charts/<%= chart.id %>" target="_blank">Get embedding code</a></p>
 					  	</div>
+					  <% chart_ids.push(chart.id) %>
 					  <% chart_count = 2 %>
 					<% else %>
 							<div class="col-sm-4">
@@ -99,6 +100,7 @@
 					  	  <p><a href="/charts/<%= chart.id %>" target="_blank">Get embedding code</a></p>
 					  	</div>
 					  </div>
+					  <% chart_ids.push(chart.id) %>
 					  <% chart_count = 0 %>
 					<% end %>
 		  	<% end %>
