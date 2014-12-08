@@ -17,7 +17,7 @@
 
     // bar chart
     <% if @chart.chart_type_id == 2 %>
-      data.addColumn('string', '<%= Topic.find(@chart.datasets.take.topic_id).name %>');
+      data.addColumn('string', 'Name');
       data.addColumn('number', '<%= QuantityType.find(@chart.datasets.take.quantities.take.quantity_type_id).name %>');
       <% @chart.datasets.take.quantities.each do |quantity| %>
         <% quantity.topics.each do |topic| %>
@@ -39,7 +39,13 @@
       <% @chart.datasets.each do |dataset| %>
 
         // chart takes reference from first dataset for date. Which means it doesn't matter what dates are the other data points as long as they're in order.
-        data.addColumn('number', '<%= Topic.find(dataset.topic_id).name %>');
+        <% dataset.quantities.first.topics.each do |topic| %>
+          <% @chart.topics.each do |chart_topic| %>
+            <% if topic.name == chart_topic.name %>
+              data.addColumn('number', '<%= topic.name %>');
+            <% end %>
+          <% end %>
+        <% end %>
       <% end %>
 
       // add placeholder arrays first dataset
