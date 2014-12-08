@@ -21,9 +21,9 @@
       data.addColumn('number', '<%= QuantityType.find(@chart.datasets.take.quantities.take.quantity_type_id).name %>');
       <% @chart.datasets.take.quantities.each do |quantity| %>
         <% quantity.topics.each do |topic| %>
-          <% topic.topics.each do |category| %>
-            <% if category.id == @chart.datasets.take.topic_id %>
-              <% data.push([topic.name, quantity.number.to_f])  %>
+          <% @chart.topics.each do |chart_topic| %>
+            <% if topic.name == chart_topic.name %>
+              <% data.push([topic.name, quantity.number.to_f]) %>
             <% end %>
           <% end %>
         <% end %>
