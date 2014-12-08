@@ -72,6 +72,7 @@ RailsAdmin.config do |config|
       field :chart_type
       field :colors
       field :datasets
+      field :topics
       field :tooltip
       field :user_id, :hidden do
         default_value do

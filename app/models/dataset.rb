@@ -5,6 +5,5 @@ class Dataset < ActiveRecord::Base
 	has_many :charts, through: :chart_datasets
 	validates :name, presence: true
 	belongs_to :user
-	belongs_to :topic
 	# validation to check that their units are the same?
 end
