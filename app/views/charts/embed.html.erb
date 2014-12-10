@@ -97,8 +97,9 @@
                      hAxis: {format: '##%'},
                    <% end %>
                    <% if @chart.tooltip == false %>
-                    'tooltip': {trigger: 'none'}
+                    'tooltip': {trigger: 'none'},
                    <% end %>
+                    chartArea: {top:50}
                   };
 
     // If number = percentage
