@@ -8,6 +8,7 @@ Collate::Application.routes.draw do
   root 'home#home'
   get 'charts/:id' => 'charts#show' 
   get 'charts/embed/:id' => 'charts#embed'
+  get 'topics/:name' => 'topics#show'
   get 'about' => 'home#about'
   get 'search' => 'home#search'
   post 'search' => 'home#search'
