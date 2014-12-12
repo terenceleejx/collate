@@ -121,11 +121,11 @@
     chart.draw(data, options);
   }
 </script>
-<h3>
+<h4>
   <% if @chart.datasets.first.quantities.first.unit_id == 2 %>  
   <%= @chart.name + " (US$)" %>
   <% else %>
   <%= @chart.name %>
   <% end %>
-</h3>
+</h4>
 <div id="chart_div"></div>
