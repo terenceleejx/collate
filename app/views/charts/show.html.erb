@@ -80,11 +80,6 @@
 
     // Set chart options
     var options = {
-                   <% if @chart.datasets.first.quantities.first.unit_id == 2 %>  
-                   'title':'<%= @chart.name + " (US$)" %>',
-                   <% else %>
-                   'title':'<%= @chart.name %>',
-                   <% end %>
                    'width':'100%',
                    'height': <%= chart_height %>,
                    'colors':<%= @chart.colors.to_json.html_safe %>,
@@ -99,7 +94,7 @@
                    <% if @chart.tooltip == false %>
                     'tooltip': {trigger: 'none'},
                    <% end %>
-                    chartArea: {top:50}
+                    chartArea: {top:20}
                   };
 
     // If number = percentage
@@ -123,7 +118,13 @@
 </script>
 <div class="row">
   <div class="col-md-8">
-    <h3>Chart</h3>
+    <h3>
+      <% if @chart.datasets.first.quantities.first.unit_id == 2 %>  
+      <%= @chart.name + " (US$)" %>
+      <% else %>
+      <%= @chart.name %>
+      <% end %>
+    </h3>
     <div id="chart_div"></div>
   </div>
   <div class="col-md-4">
