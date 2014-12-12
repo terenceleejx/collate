@@ -76,7 +76,7 @@
       data.addRows(row_data);
     <% end %>
 
-    <% chart_height = @chart.datasets.first.quantities.count * 80 %>
+    <% chart_height = @chart.datasets.first.quantities.count * 75 %>
 
     // Set chart options
     var options = {
@@ -129,7 +129,7 @@
   <div class="col-md-4">
     <h3>Embedding code</h3>
     <textarea class="form-control" rows="10">
-&lt;iframe src=&quot;//getstatsy.herokuapp.com/charts/embed/<%= @chart.id %>&quot; width=&quot;100%&quot; height=&quot;<%= chart_height * 0.9 %>&quot; style=&quot;border-width:0&quot; scrolling=&quot;no&quot;&gt;&lt;/iframe&gt;&lt;p style=&quot;text-align:right; margin-right:10%; font-size:70%&quot;&gt;&lt;a href=&quot;http://www.statsy.co/charts/<%= @chart.id %>&quot; target=&quot;_blank&quot;&gt;Sources&lt;/a&gt; | Made with &lt;a href=&quot;http://www.statsy.co/about&quot; target=&quot;_blank&quot;&gt;Statsy&lt;/a&gt;&lt;/p&gt;
+&lt;iframe src=&quot;//getstatsy.herokuapp.com/charts/embed/<%= @chart.id %>&quot; width=&quot;100%&quot; height=&quot;<%= chart_height %>&quot; style=&quot;border-width:0&quot; scrolling=&quot;no&quot;&gt;&lt;/iframe&gt;&lt;p style=&quot;text-align:right; margin-right:10%; font-size:70%&quot;&gt;&lt;a href=&quot;http://www.statsy.co/charts/<%= @chart.id %>&quot; target=&quot;_blank&quot;&gt;Sources&lt;/a&gt; | Made with &lt;a href=&quot;http://www.statsy.co/about&quot; target=&quot;_blank&quot;&gt;Statsy&lt;/a&gt;&lt;/p&gt;
     </textarea>
   </div>
 </div>
@@ -139,10 +139,10 @@
     <h3>Data sources</h3>
     <% @chart.datasets.each do |dataset| %>
       <% dataset.quantities.each do |quantity| %>
-        <% if quantity.source_id.blank? == false %>
-          <% if Source.find(quantity.source_id).title.blank? == false && Source.find(quantity.source_id).URL.blank? == false %>
-            <% if sources.include?([Source.find(quantity.source_id).title, Source.find(quantity.source_id).URL]) == false %>
-              <% sources.push [Source.find(quantity.source_id).title, Source.find(quantity.source_id).URL] %>
+        <% quantity.sources.each do |source| %>
+          <% if source.title.blank? == false && source.URL.blank? == false %>
+            <% if sources.include?([source.title, source.URL]) == false %>
+              <% sources.push [source.title, source.URL] %>
             <% end %>
           <% end %>
         <% end %>

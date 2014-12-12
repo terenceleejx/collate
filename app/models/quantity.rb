@@ -11,9 +11,10 @@ class Quantity < ActiveRecord::Base
 	has_many :topics, through: :quantity_topics
 	has_many :quantity_datasets
 	has_many :datasets, through: :quantity_datasets
+	has_many :quantity_sources
+	has_many :sources, through: :quantity_sources
 	validates :number, numericality: true
 	belongs_to :unit
 	belongs_to :quantity_type
-	belongs_to :source
 	belongs_to :user
 end

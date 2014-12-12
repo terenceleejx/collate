@@ -47,7 +47,7 @@ RailsAdmin.config do |config|
       field :topics
       field :unit, :belongs_to_association
       field :quantity_type, :belongs_to_association
-      field :source, :belongs_to_association
+      field :sources
       field :datasets
       field :notes
       field :user_id, :hidden do
