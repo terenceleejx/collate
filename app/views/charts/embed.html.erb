@@ -80,11 +80,6 @@
 
     // Set chart options
     var options = {
-                   <% if @chart.datasets.first.quantities.first.unit_id == 2 %>  
-                   'title':'<%= @chart.name + " (US$)" %>',
-                   <% else %>
-                   'title':'<%= @chart.name %>',
-                   <% end %>
                    'width':'100%',
                    'height': <%= chart_height %>,
                    'colors':<%= @chart.colors.to_json.html_safe %>,
