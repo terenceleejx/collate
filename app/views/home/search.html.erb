@@ -56,8 +56,7 @@
  			  			<% end %>
  			  		</td>
  			  		<td>
- 			  			<% if quantity.source_id.blank? == false %>
-	 			  			<% @source = Source.find quantity.source_id %>
+ 			  			<% quantity.sources.each do |source| %>
 	 			  			<a href="<%= @source.URL %>"><%= @source.title %></a>
 	 			  		<% end %>
  			  		</td>

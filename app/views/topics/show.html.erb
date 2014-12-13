@@ -1,1 +1,77 @@
-<%= @topic.name %>
+<% content_for :title, "Statsy: #{@topic.name}" %>
+<div class="row">
+	<div class="col-md-12">
+		<h1><%= @topic.name %></h1>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-9">
+		<p class="lead"><%= @topic.description %></p>
+	</div>
+</div>
+<div class ="row">
+	<div class ="col-md-8">
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Value</th>
+					<th>Type</th>
+					<th>Date</th>
+					<th>Source</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% @quantities.each do |quantity| %>
+				<tr>
+					<td>
+ 			  		<% if quantity.unit_id == 1 %>
+ 			  			<%= quantity.number*100 %> %
+ 			  		<% else %>
+ 			  			<%= number_to_human quantity.number %>
+ 			  		<% end %>
+					</td>
+					<td>
+						<% if quantity.quantity_type_id.blank? == false %>
+	 			  		<% @quantity_type = QuantityType.find quantity.quantity_type_id %>
+	 			  		<%= @quantity_type.name %>
+	 			  	<% end %>
+					</td>
+					<td>
+						<% if quantity.date.blank? == false %>
+ 			  			<%= quantity.date.strftime("%B %d, %Y") %>
+ 			  		<% end %>
+					</td>
+					<td>
+						<% quantity.sources.each do |source| %>
+	 			  	<a href="<%= @source.URL %>"><%= @source.title %></a>
+	 			  	<% end %>
+					</td>	
+				</tr>
+				<% end %>
+			</tbody>
+		</table>
+	</div>
+	<div class="col-md-4">
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Chart name</th>
+				</tr>
+			</thead>
+			<tbody>
+			<% chart_ids = Array.new %>
+			<% @quantities.each do |quantity| %>
+		  	<% quantity.datasets.each do |dataset| %>
+		  		<% dataset.charts.each do |chart| %>
+		  	  	<% if chart_ids.include?(chart.id) == false %>
+		  	  		<tr>
+		  	  			<td><a href="/charts/<%= chart.id %>"><%= chart.name %></a></td>
+		  	  		</tr>
+						<% end %>
+					<% end %>
+				<% end %>
+			<% end %>
+			</tbody>
+		</table>
+	</div>
+</div>
