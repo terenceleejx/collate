@@ -67,6 +67,7 @@
 		  	  		<tr>
 		  	  			<td><a href="/charts/<%= chart.id %>"><%= chart.name %></a></td>
 		  	  		</tr>
+		  	  		<% chart_ids.push(chart.id) %>
 						<% end %>
 					<% end %>
 				<% end %>
@@ -74,4 +75,8 @@
 			</tbody>
 		</table>
 	</div>
+</div>
+<!-- pagination -->
+<div class="row">
+	<%= paginate @quantities %>
 </div>
