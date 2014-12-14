@@ -7,9 +7,9 @@ class Ability
     if user.admin?
       can :manage, :all 
     else
-      can [:read, :create], [Unit, Source, QuantityType, Topic, Quantity]
+      can [:read, :create], [Unit, Source, QuantityType, Topic]
       can :read, ChartType
-      can :manage, [Chart, Dataset], user_id: user.id 
+      can :manage, [Chart, Dataset, Quantity], user_id: user.id 
     end  
     # Define abilities for the passed in user here. For example:
     #
