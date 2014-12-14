@@ -34,7 +34,7 @@
  			  	<tr>
  			  		<td>
  			  			<% quantity.topics.each do |topic| %>
- 			  		    <%= topic.name %>
+ 			  		    <a href="/topics/<%= topic.name %>"><%= topic.name %></a>
  			  		  <% end %>
  			  		</td>
  			  		<td>
