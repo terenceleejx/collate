@@ -13,8 +13,10 @@ class Quantity < ActiveRecord::Base
 	has_many :datasets, through: :quantity_datasets
 	has_many :quantity_sources
 	has_many :sources, through: :quantity_sources
+	has_many :quantities, foreign_key: "parent_id"
 	validates :number, numericality: true
 	belongs_to :unit
 	belongs_to :quantity_type
 	belongs_to :user
+	belongs_to :parent, class_name: "Quantity"
 end

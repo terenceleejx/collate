@@ -27,6 +27,9 @@
 	  			<th>Type</th>
 	  			<th>Date</th>
 	  			<th>Source</th>
+	  			<% if user_signed_in? %>
+	  				<th></th>
+	  			<% end %>
 	  		</tr>
 	  	</thead>
 	  	<tbody>	
@@ -60,19 +63,23 @@
 	 			  			<a href="<%= source.URL %>"><%= source.title %></a>
 	 			  		<% end %>
  			  		</td>
+ 			  		<% if user_signed_in? && quantity.user_id != current_user.id %>
+	  				<td>
+	  					<% new_quantity = quantity.dup %>
+	  					<% new_quantity.user_id = current_user.id %>
+	  					<%= link_to "Add", new_quantity.save %>
+	  				</td>
+	  				<% else %>
+	  				<td></td>
+	  				<% end %>
  			  	</tr>
  			  <% end %>
- 			  <tr>
- 			  	<td colspan="5">
- 			  		<h3>Not what you what? Add a new <a href="/backyard/quantity/new" target="_blank">stat</a>.</h3>
- 			  		<!-- pagination -->
-						<div class="row">
-							<%= paginate @quantities %>
-						</div>
- 			  	</td>
- 			  </tr>
 	  	</tbody>
 	  </table>
+	  <div class="row">
+			<h3>Not what you what? Add a new <a href="/backyard/quantity/new" target="_blank">stat</a>.</h3>
+			<%= paginate @quantities %>
+		</div>
 	</div>
 </div>
 <% else %>
