@@ -8,10 +8,9 @@ class HomeController < ApplicationController
 		@quantity = Quantity.new
 	end
 	def clone
-		Quantity.create(quantity_params)
+		original = Quantity.find(params[:quantity][:id])
+		clone = original.amoeba_dup
+		clone.parent_id = params[:quantity][:id]
+		clone.save
 	end
-	private
-		def quantity_params
-			params.require(:quantity).permit(:number, :user_id)
-		end
 end

@@ -66,8 +66,7 @@
  			  		<% if user_signed_in? && quantity.user_id != current_user.id %>
 	  				<td align="right">
 	  					<%= form_for :quantity, url: {action: "clone"}, remote: true do |f| %>
-	  						<%= f.hidden_field :number, value: 10 %>
-	  						<%= f.hidden_field :user_id, value: current_user.id %>
+	  						<%= f.hidden_field :id, value: quantity.id %>
 	  						<%= f.submit "Add" %>
 	  					<% end %>
 	  				</td>
