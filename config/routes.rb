@@ -11,7 +11,8 @@ Collate::Application.routes.draw do
   get 'topics/:name' => 'topics#show'
   get 'about' => 'home#about'
   get 'search' => 'home#search'
-  post 'search' => 'home#search'
+  post 'search' => 'home#clone'
+
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
