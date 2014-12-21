@@ -34,46 +34,106 @@
 	  	</thead>
 	  	<tbody>	
  			  <% @quantities.each do |quantity| %>
- 			  	<tr>
- 			  		<td>
- 			  			<% quantity.topics.each do |topic| %>
- 			  		    <a href="/topics/<%= topic.name %>"><%= topic.name %></a>
- 			  		  <% end %>
- 			  		</td>
- 			  		<td>
- 			  			<% if quantity.unit_id == 1 %>
- 			  				<%= quantity.number*100 %> %
+ 			  	<% owns_child = false %>
+ 			  	<%# check if this is a parent quantity %>
+ 			  	<% if quantity.parent_id.blank? == true %>
+ 			  		<% quantity.quantities.each do |child_quantity| %>
+ 			  			<% if child_quantity.user_id == current_user.id %>
+ 			  				<% owns_child = true %>
+ 			  				<% break %>
  			  			<% else %>
- 			  				<%= number_to_human quantity.number %>
+ 			  				<% owns_child = false %>
  			  			<% end %>
- 			  		</td>
- 			  		<td>
- 			  			<% if quantity.quantity_type_id.blank? == false %>
-	 			  			<% @quantity_type = QuantityType.find quantity.quantity_type_id %>
-	 			  			<%= @quantity_type.name %>
-	 			  		<% end %>
- 			  		</td>
- 			  		<td>
- 			  			<% if quantity.date.blank? == false %>
- 			  				<%= quantity.date.strftime("%B %d, %Y") %>
- 			  			<% end %>
- 			  		</td>
- 			  		<td>
- 			  			<% quantity.sources.each do |source| %>
-	 			  			<a href="<%= source.URL %>"><%= source.title %></a>
-	 			  		<% end %>
- 			  		</td>
- 			  		<% if user_signed_in? && quantity.user_id != current_user.id %>
-	  				<td align="right">
-	  					<%= form_for :quantity, url: {action: "clone"}, remote: true do |f| %>
-	  						<%= f.hidden_field :id, value: quantity.id %>
-	  						<%= f.submit "Add" %>
-	  					<% end %>
-	  				</td>
-	  				<% else %>
-	  				<td></td>
-	  				<% end %>
- 			  	</tr>
+ 			  		<% end %>
+		  			<%# print if user does not possess child quantity %>
+		  			<% if owns_child == false %>
+		  			<tr>
+	 			  		<td>
+	 			  			<% quantity.topics.each do |topic| %>
+	 			  		    <a href="/topics/<%= topic.name %>"><%= topic.name %></a>
+	 			  		  <% end %>
+	 			  		</td>
+	 			  		<td>
+	 			  			<% if quantity.unit_id == 1 %>
+	 			  				<%= quantity.number*100 %> %
+	 			  			<% else %>
+	 			  				<%= number_to_human quantity.number %>
+	 			  			<% end %>
+	 			  		</td>
+	 			  		<td>
+	 			  			<% if quantity.quantity_type_id.blank? == false %>
+		 			  			<% @quantity_type = QuantityType.find quantity.quantity_type_id %>
+		 			  			<%= @quantity_type.name %>
+		 			  		<% end %>
+	 			  		</td>
+	 			  		<td>
+	 			  			<% if quantity.date.blank? == false %>
+	 			  				<%= quantity.date.strftime("%B %d, %Y") %>
+	 			  			<% end %>
+	 			  		</td>
+	 			  		<td>
+	 			  			<% quantity.sources.each do |source| %>
+		 			  			<a href="<%= source.URL %>"><%= source.title %></a>
+		 			  		<% end %>
+	 			  		</td>
+	 			  		<% if user_signed_in? && quantity.user_id != current_user.id %>
+		  				<td align="right">
+		  					<%= form_for :quantity, url: {action: "clone"}, remote: true do |f| %>
+		  						<%= f.hidden_field :id, value: quantity.id %>
+		  						<%= f.submit "Add" %>
+		  					<% end %>
+		  				</td>
+		  				<% else %>
+		  				<td></td>
+		  				<% end %>
+	 			  	</tr>
+	 			  	<% end %>
+ 			  	<% else %>
+ 			  		<%# don't print if child has a parent the user owns %>
+ 			  		<% if Quantity.find(quantity.parent_id).user_id == current_user.id %>
+ 			  		<% else %>
+ 			  		<tr>
+	 			  		<td>
+	 			  			<% quantity.topics.each do |topic| %>
+	 			  		    <a href="/topics/<%= topic.name %>"><%= topic.name %></a>
+	 			  		  <% end %>
+	 			  		</td>
+	 			  		<td>
+	 			  			<% if quantity.unit_id == 1 %>
+	 			  				<%= quantity.number*100 %> %
+	 			  			<% else %>
+	 			  				<%= number_to_human quantity.number %>
+	 			  			<% end %>
+	 			  		</td>
+	 			  		<td>
+	 			  			<% if quantity.quantity_type_id.blank? == false %>
+		 			  			<% @quantity_type = QuantityType.find quantity.quantity_type_id %>
+		 			  			<%= @quantity_type.name %>
+		 			  		<% end %>
+	 			  		</td>
+	 			  		<td>
+	 			  			<% if quantity.date.blank? == false %>
+	 			  				<%= quantity.date.strftime("%B %d, %Y") %>
+	 			  			<% end %>
+	 			  		</td>
+	 			  		<td>
+	 			  			<% quantity.sources.each do |source| %>
+		 			  			<a href="<%= source.URL %>"><%= source.title %></a>
+		 			  		<% end %>
+	 			  		</td>
+	 			  		<% if user_signed_in? && quantity.user_id != current_user.id %>
+		  				<td align="right">
+		  					<%= form_for :quantity, url: {action: "clone"}, remote: true do |f| %>
+		  						<%= f.hidden_field :id, value: quantity.id %>
+		  						<%= f.submit "Add" %>
+		  					<% end %>
+		  				</td>
+		  				<% else %>
+		  				<td></td>
+		  				<% end %>
+		 			  </tr>
+		 			  <% end %>
+ 			  	<% end %>
  			  <% end %>
 	  	</tbody>
 	  </table>
