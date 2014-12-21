@@ -11,6 +11,7 @@ class HomeController < ApplicationController
 		original = Quantity.find(params[:quantity][:id])
 		clone = original.amoeba_dup
 		clone.parent_id = params[:quantity][:id]
+		clone.user_id = current_user.id
 		clone.save
 	end
 end
