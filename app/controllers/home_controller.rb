@@ -13,6 +13,7 @@ class HomeController < ApplicationController
 		clone.parent_id = params[:quantity][:id]
 		clone.user_id = current_user.id
 		clone.save
+		sleep 2
 		respond_to do |format|
   		format.js {render inline: "location.reload();" }
 		end
