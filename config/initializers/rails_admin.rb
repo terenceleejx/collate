@@ -3,7 +3,7 @@ RailsAdmin.config do |config|
     RailsAdmin::Config::Fields::Types::register(self)
   end
 
-  config.main_app_name = ["Statsy", "Admin"]
+  config.main_app_name = ["Statsy", "Dashboard"]
   ### Popular gems integration
 
   ## == Devise ==
