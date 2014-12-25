@@ -74,6 +74,12 @@
       <% end %>
 
       data.addRows(row_data);
+    // Geochart
+    <% elsif @chart.chart_type_id == 5 %>
+      data.addColumn('string', 'Country');
+      <% @chart.datasets.each do |dataset| %>
+        data.addColumn('number', '<%= QuantityType.find(@dataset.quantities.first.quantity_type_id) %>');
+      <% end %>
     <% end %>
 
     <% chart_height = @chart.datasets.first.quantities.count * 50 + 90 %>
