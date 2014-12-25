@@ -13,7 +13,6 @@ Collate::Application.routes.draw do
   get 'search' => 'home#search'
   post 'search' => 'home#clone'
 
-
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

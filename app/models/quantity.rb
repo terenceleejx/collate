@@ -19,7 +19,4 @@ class Quantity < ActiveRecord::Base
 	belongs_to :quantity_type
 	belongs_to :user
 	belongs_to :parent, class_name: "Quantity"
-	amoeba do
-    enable
-  end
 end

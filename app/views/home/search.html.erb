@@ -80,7 +80,7 @@
 		  				<td align="right">
 		  					<%= form_for :quantity, url: {action: "clone"}, remote: true do |f| %>
 		  						<%= f.hidden_field :id, value: quantity.id %>
-		  						<%= f.submit "Add" %>
+		  						<%= f.submit "Add", class: "btn btn-default" %>
 		  					<% end %>
 		  				</td>
 		  				<% else %>
@@ -90,7 +90,7 @@
 	 			  	<% end %>
  			  	<% else %>
  			  		<%# don't print if child has a parent the user owns %>
- 			  		<% if Quantity.find(quantity.parent_id).user_id == current_user.id %>
+ 			  		<% if Quantity.exists?(quantity.parent_id) == true && Quantity.find(quantity.parent_id).user_id == current_user.id %>
  			  		<% else %>
  			  		<tr>
 	 			  		<td>
@@ -125,7 +125,7 @@
 		  				<td align="right">
 		  					<%= form_for :quantity, url: {action: "clone"}, remote: true do |f| %>
 		  						<%= f.hidden_field :id, value: quantity.id %>
-		  						<%= f.submit "Add" %>
+		  						<%= f.submit "Add", class: "btn btn-default" %>
 		  					<% end %>
 		  				</td>
 		  				<% else %>

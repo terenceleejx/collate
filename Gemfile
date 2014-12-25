@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 ruby '2.1.1'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.1.6'
+gem 'rails', '4.2.0'
 # Use sqlite3 as the database for Active Record
 gem 'pg', '~> 0.17.1'
 # Use SCSS for stylesheets
@@ -26,9 +26,9 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
 gem 'spring',        group: :development
 
-gem 'devise', '~> 3.3.0'
+gem 'devise', '~> 3.4.1'
 
-gem 'rails_admin', '~> 0.6.3'
+gem 'rails_admin', '~> 0.6.6'
 
 gem 'rails_12factor', group: :production
 
@@ -39,7 +39,7 @@ gem 'autoprefixer-rails', '~> 3.1.2.20141016'
 gem 'searchkick', '~> 0.8.3'
 gem 'kaminari', '~> 0.16.1'
 gem 'cancan', '~> 1.6.10'
-gem 'amoeba', '~> 2.1.0'
+gem 'deep_cloneable', '~> 2.0.2'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

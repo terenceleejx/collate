@@ -9,9 +9,12 @@ class HomeController < ApplicationController
 	end
 	def clone
 		original = Quantity.find(params[:quantity][:id])
-		clone = original.amoeba_dup
+		clone = original.deep_clone :include => [:topics, :sources]
 		clone.parent_id = params[:quantity][:id]
 		clone.user_id = current_user.id
 		clone.save
+		respond_to do |format|
+  		format.js {render inline: "location.reload();" }
+		end
 	end
 end
