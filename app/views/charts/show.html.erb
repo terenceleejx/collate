@@ -14,6 +14,7 @@
 
     // Create the data table.
     var data = new google.visualization.DataTable();
+    <% data_count = 0 %>
 
     // bar chart
     <% if @chart.chart_type_id == 2 %>
@@ -49,37 +50,66 @@
       <% end %>
 
       // add placeholder arrays first dataset
-      <% date_count = 0 %>
       <% @chart.datasets.first.quantities.order("date").each do |quantity| %>
 
         // convert Ruby date to Javascript date
         var javascript_date = new Date(<%= Time.parse(quantity.date.to_s).utc.to_i*1000 %>)
-        var date<%= date_count %> = [javascript_date];
-        <% date_count += 1 %>
+        var date<%= data_count %> = [javascript_date];
+        <% data_count += 1 %>
       <% end %>
 
       // fill in data for each array
       <% @chart.datasets.each do |dataset| %>
-        <% date_count = 0 %>
+        <% data_count = 0 %>
         <% dataset.quantities.order("date").each do |quantity| %>
-          date<%= date_count %>.push(<%= quantity.number %>);
-          <% date_count += 1 %>
+          date<%= data_count %>.push(<%= quantity.number %>);
+          <% data_count += 1 %>
         <% end %>
       <% end %>
 
       // add each array to overall data array
       var row_data = [];
-      <% (1..date_count).each do |i| %>
+      <% (1..data_count).each do |i| %>
         row_data.push(date<%= i-1 %>);
       <% end %>
 
       data.addRows(row_data);
+
     // Geochart
     <% elsif @chart.chart_type_id == 5 %>
       data.addColumn('string', 'Country');
       <% @chart.datasets.each do |dataset| %>
-        data.addColumn('number', '<%= QuantityType.find(@dataset.quantities.first.quantity_type_id) %>');
+        <% if dataset.quantities.first.quantity_type_id.blank? == false %>
+          data.addColumn('number', '<%= QuantityType.find(dataset.quantities.first.quantity_type_id).name %>');
+        <% else %>
+          data.addColumn('number', 'Amount');
+        <% end %>
       <% end %>
+      // match quantity topic to chart topic. If match, add data to arrays
+      <% @chart.datasets.each do |dataset| %>
+        <% data_count = 0 %>
+        <% dataset_count = 0 %>
+        <% dataset.quantities.each do |quantity| %>
+          <% quantity.topics.each do |topic| %>
+            <% @chart.topics.each do |chart_topic| %>
+              <% if topic.name == chart_topic.name %>
+                // country name only needs to be added once
+                <% if dataset_count == 0 %>
+                  var data<%= data_count %> = ["<%= topic.name %>"];
+                <% end %>
+                data<%= data_count %>.push(<%= quantity.number %>);
+                <% data_count += 1 %>
+                <% dataset_count += 1 %>
+              <% end %>
+            <% end %>
+          <% end %>
+        <% end %>
+      <% end %>
+      var row_data = [];
+      <% (1..data_count).each do |i| %>
+        row_data.push(data<%= i-1 %>);
+      <% end %>
+      data.addRows(row_data);
     <% end %>
 
     <% chart_height = @chart.datasets.first.quantities.count * 50 + 90 %>
@@ -119,6 +149,8 @@
       var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
     <% elsif @chart.chart_type_id == 4 %>
       var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+    <% elsif @chart.chart_type_id == 5 %>
+      var chart = new google.visualization.GeoChart(document.getElementById('chart_div'));
     <% end %>      
     chart.draw(data, options);
   }
