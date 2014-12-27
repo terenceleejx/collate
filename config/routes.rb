@@ -9,6 +9,7 @@ Collate::Application.routes.draw do
   get 'charts/:id' => 'charts#show' 
   get 'charts/embed/:id' => 'charts#embed'
   get 'topics/:name' => 'topics#show'
+  post 'topics/:name' => 'topics#clone'
   get 'about' => 'home#about'
   get 'search' => 'home#search'
   post 'search' => 'home#clone'
