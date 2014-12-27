@@ -41,6 +41,15 @@ RailsAdmin.config do |config|
     object_label_method do
       :custom_label_method
     end 
+    list do
+      field :topics
+      field :number
+      field :date
+      field :unit, :belongs_to_association
+      field :quantity_type, :belongs_to_association
+      field :sources
+      field :datasets
+    end
     edit do 
       field :number
       field :date
@@ -67,6 +76,11 @@ RailsAdmin.config do |config|
   end
 
   config.model Chart do 
+    list do
+      field :name
+      field :chart_type
+      field :datasets
+    end
     edit do 
       field :name
       field :chart_type
@@ -82,6 +96,11 @@ RailsAdmin.config do |config|
     end 
   end
   config.model Dataset do 
+    list do
+      field :name
+      field :quantities
+      field :charts
+    end
     edit do 
       field :name
       field :quantities
@@ -91,5 +110,38 @@ RailsAdmin.config do |config|
         end
       end
     end 
+  end
+  config.model ChartType do 
+    list do
+      field :name
+      field :charts
+    end
+  end
+  config.model QuantityType do 
+    list do
+      field :name
+      field :quantities
+    end
+  end
+  config.model Source do 
+    list do
+      field :title
+      field :URL
+      field :quantities
+    end
+  end
+  config.model Topic do 
+    list do
+      field :name
+      field :description
+      field :quantities
+      field :charts
+    end
+  end
+  config.model Unit do 
+    list do
+      field :name
+      field :quantities
+    end
   end
 end
