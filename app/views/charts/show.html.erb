@@ -99,11 +99,11 @@
                 <% end %>
                 data<%= data_count %>.push(<%= quantity.number %>);
                 <% data_count += 1 %>
-                <% dataset_count += 1 %>
               <% end %>
             <% end %>
           <% end %>
         <% end %>
+        <% dataset_count += 1 %>
       <% end %>
       var row_data = [];
       <% (1..data_count).each do |i| %>
@@ -112,7 +112,11 @@
       data.addRows(row_data);
     <% end %>
 
-    <% chart_height = @chart.datasets.first.quantities.count * 50 + 90 %>
+    <% if @chart.chart_type_id == 5 %>
+      <% chart_height = 550 %>
+    <% else %>
+      <% chart_height = @chart.datasets.first.quantities.count * 50 + 90 %>
+    <% end %>
 
     // Set chart options
     var options = {
@@ -131,7 +135,10 @@
                     'tooltip': {trigger: 'none'},
                    <% end %>
                     chartArea: {top:20},
-                    pointSize: 5
+                    pointSize: 5,
+                  <% if @chart.chart_type_id == 5 %>
+                    colorAxis: {colors: <%= @chart.colors.to_json.html_safe %>}
+                  <% end %>
                   };
 
     // If number = percentage
