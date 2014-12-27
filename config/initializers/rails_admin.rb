@@ -129,12 +129,21 @@ RailsAdmin.config do |config|
       field :URL
       field :quantities
     end
+    edit do
+      field :title
+      field :URL
+    end
   end
   config.model Topic do 
     list do
       field :name
       field :description
       field :quantities
+      field :charts
+    end
+    edit do
+      field :name
+      field :description
       field :charts
     end
   end
